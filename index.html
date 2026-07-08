@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Libre Cafe Order</title>
+    <link rel="stylesheet" href="./src/shared/styles/reset.css" />
+    <link rel="stylesheet" href="./src/shared/styles/base.css" />
+    <link rel="stylesheet" href="./src/shared/styles/layout.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+
+    <main>
+      <section class="hero">
+        <div class="hero__content">
+          <p class="eyebrow">Cafe menu order</p>
+          <h1>커피, 음료, 디저트를 한 번에 주문하는 카페앱</h1>
+          <p class="hero__description">
+            커피리브레의 정돈된 상품 그리드와 브랜드 톤을 참고해, 일반 카페 메뉴를
+            빠르게 탐색하고 픽업 주문할 수 있는 사이트로 구현합니다.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="./src/customer/home/read/index.html">고객 홈 보기</a>
+            <a class="button button--ghost" href="./src/admin/dashboard/read/index.html">관리자 대시보드</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__header">
+          <p class="eyebrow">Menu categories</p>
+          <h2>카페 메뉴 카테고리</h2>
+        </div>
+        <div class="category-grid" id="category-list"></div>
+      </section>
+
+      <section class="section">
+        <div class="section__header">
+          <p class="eyebrow">Recommended</p>
+          <h2>대표 메뉴 미리보기</h2>
+        </div>
+        <div class="menu-grid" id="menu-preview"></div>
+      </section>
+    </main>
+
+    <div id="app-footer"></div>
+
+    <script type="module">
+      import { CATEGORIES } from './data/categories.js';
+      import { MENU_ITEMS } from './data/menu.js';
+      import { renderHeader } from './src/shared/components/header.js';
+      import { renderFooter } from './src/shared/components/footer.js';
+      import { createMenuCard } from './src/shared/components/menu-card.js';
+
+      document.getElementById('app-header').innerHTML = renderHeader('home');
+      document.getElementById('app-footer').innerHTML = renderFooter();
+
+      const categoryList = document.getElementById('category-list');
+      categoryList.innerHTML = CATEGORIES.map((category) => `
+        <article class="category-card">
+          <p>${category.nameEn}</p>
+          <h3>${category.nameKo}</h3>
+          <span>${category.description}</span>
+        </article>
+      `).join('');
+
+      const menuPreview = document.getElementById('menu-preview');
+      menuPreview.innerHTML = MENU_ITEMS
+        .filter((menu) => menu.isRecommended)
+        .slice(0, 4)
+        .map(createMenuCard)
+        .join('');
+    </script>
+  </body>
+</html>
