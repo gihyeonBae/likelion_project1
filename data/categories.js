@@ -1,0 +1,42 @@
+export const CATEGORIES = [
+  {
+    id: 'coffee',
+    nameKo: '커피',
+    nameEn: 'Coffee',
+    description: '에스프레소 기반 커피와 콜드브루',
+    sortOrder: 1,
+    isVisible: true,
+  },
+  {
+    id: 'non-coffee',
+    nameKo: '논커피 음료',
+    nameEn: 'Non Coffee',
+    description: '말차, 초코, 밀크티, 에이드',
+    sortOrder: 2,
+    isVisible: true,
+  },
+  {
+    id: 'dessert',
+    nameKo: '디저트',
+    nameEn: 'Dessert',
+    description: '케이크, 쿠키, 구움과자',
+    sortOrder: 3,
+    isVisible: true,
+  },
+  {
+    id: 'bakery',
+    nameKo: '베이커리',
+    nameEn: 'Bakery',
+    description: '크루아상, 소금빵, 스콘, 베이글',
+    sortOrder: 4,
+    isVisible: true,
+  },
+  {
+    id: 'season',
+    nameKo: '시즌 메뉴',
+    nameEn: 'Seasonal',
+    description: '계절 한정 음료와 디저트',
+    sortOrder: 5,
+    isVisible: true,
+  },
+];
