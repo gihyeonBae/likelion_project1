@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메뉴 검색 | Libre Cafe</title>
+    <link rel="stylesheet" href="../../../../shared/styles/reset.css" />
+    <link rel="stylesheet" href="../../../../shared/styles/base.css" />
+    <link rel="stylesheet" href="../../../../shared/styles/layout.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main>
+      <section class="page-hero page-hero--menu">
+        <div class="page-hero__content">
+          <p class="eyebrow">Search</p>
+          <h1>메뉴 검색</h1>
+          <form class="search-form" action="./index.html" method="get">
+            <input id="keyword-input" type="search" name="keyword" placeholder="아메리카노, 케이크, 시즌" aria-label="메뉴 검색어" />
+            <button class="button button--primary" type="submit">검색</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="result-summary" id="result-summary"></div>
+        <div class="menu-grid" id="search-results"></div>
+      </section>
+    </main>
+    <div id="app-footer"></div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
