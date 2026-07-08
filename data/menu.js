@@ -7,6 +7,7 @@ export const MENU_ITEMS = [
     description: '깔끔한 산미와 고소한 향이 균형 잡힌 기본 커피',
     price: 4500,
     imageUrl: './assets/images/menu/americano.jpg',
+    imageTone: 'coffee',
     tags: ['coffee', 'classic'],
     options: {
       temperature: ['hot', 'ice'],
@@ -25,6 +26,7 @@ export const MENU_ITEMS = [
     description: '부드러운 우유와 바닐라 향이 어우러진 달콤한 라떼',
     price: 5200,
     imageUrl: './assets/images/menu/vanilla-latte.jpg',
+    imageTone: 'latte',
     tags: ['best', 'sweet'],
     options: {
       temperature: ['hot', 'ice'],
@@ -43,6 +45,7 @@ export const MENU_ITEMS = [
     description: '진한 말차와 우유의 고소함을 살린 논커피 음료',
     price: 5800,
     imageUrl: './assets/images/menu/matcha-latte.jpg',
+    imageTone: 'matcha',
     tags: ['non-coffee', 'green'],
     options: {
       temperature: ['hot', 'ice'],
@@ -61,6 +64,7 @@ export const MENU_ITEMS = [
     description: '상큼한 레몬과 탄산감이 시원하게 살아있는 음료',
     price: 5600,
     imageUrl: './assets/images/menu/lemon-ade.jpg',
+    imageTone: 'ade',
     tags: ['ice', 'fresh'],
     options: {
       temperature: ['ice'],
@@ -79,6 +83,7 @@ export const MENU_ITEMS = [
     description: '진한 크림치즈 풍미가 있는 클래식 디저트',
     price: 6800,
     imageUrl: './assets/images/menu/cheese-cake.jpg',
+    imageTone: 'dessert',
     tags: ['dessert', 'cake'],
     options: {
       takeout: true,
@@ -94,6 +99,7 @@ export const MENU_ITEMS = [
     description: '짭조름한 버터 풍미가 살아있는 베이커리 메뉴',
     price: 3800,
     imageUrl: './assets/images/menu/salt-bread.jpg',
+    imageTone: 'bakery',
     tags: ['bakery', 'butter'],
     options: {
       takeout: true,
@@ -109,6 +115,7 @@ export const MENU_ITEMS = [
     description: '복숭아 향과 홍차의 산뜻함을 담은 시즌 한정 메뉴',
     price: 6100,
     imageUrl: './assets/images/menu/peach-iced-tea.jpg',
+    imageTone: 'season',
     tags: ['season', 'limited'],
     options: {
       temperature: ['ice'],
@@ -117,6 +124,41 @@ export const MENU_ITEMS = [
       syrup: true,
     },
     status: 'on-sale',
+    isRecommended: false,
+  },
+  {
+    id: 'menu-008',
+    nameKo: '콜드브루',
+    nameEn: 'Cold Brew',
+    categoryId: 'coffee',
+    description: '천천히 추출해 부드럽고 산뜻한 아이스 커피',
+    price: 5000,
+    imageUrl: './assets/images/menu/cold-brew.jpg',
+    imageTone: 'coffee',
+    tags: ['ice', 'smooth'],
+    options: {
+      temperature: ['ice'],
+      size: ['regular', 'large'],
+      extraShot: false,
+      syrup: false,
+    },
+    status: 'on-sale',
+    isRecommended: false,
+  },
+  {
+    id: 'menu-009',
+    nameKo: '티라미수',
+    nameEn: 'Tiramisu',
+    categoryId: 'dessert',
+    description: '커피 향과 마스카포네 크림이 어우러진 디저트',
+    price: 7200,
+    imageUrl: './assets/images/menu/tiramisu.jpg',
+    imageTone: 'dessert',
+    tags: ['dessert', 'coffee'],
+    options: {
+      takeout: true,
+    },
+    status: 'sold-out',
     isRecommended: false,
   },
 ];

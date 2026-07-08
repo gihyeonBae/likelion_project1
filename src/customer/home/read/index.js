@@ -1,5 +1,39 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
+import { getMenus } from '../../../shared/services/menu-service.js';
+import { CATEGORIES } from '../../../../data/categories.js';
+import { createCategoryTabs, createMenuGrid } from '../../menu/_shared/menu-renderer.js';
+import { getCategoryCounts, getVisibleCategories } from '../../menu/_shared/menu-filter.js';
 
 document.getElementById('app-header').innerHTML = renderHeader('home', '../../../..');
 document.getElementById('app-footer').innerHTML = renderFooter();
+
+const menus = getMenus();
+const categories = getVisibleCategories(CATEGORIES);
+const categoryCounts = getCategoryCounts(menus, CATEGORIES);
+const basePath = '../../../..';
+
+document.getElementById('category-list').innerHTML = categoryCounts.map((category) => `
+  <a class="category-card" href="${basePath}/src/customer/menu/read/list/index.html?category=${category.id}">
+    <p>${category.nameEn}</p>
+    <h3>${category.nameKo}</h3>
+    <span>${category.description}</span>
+    <strong>${category.count}개 메뉴</strong>
+  </a>
+`).join('');
+
+document.getElementById('recommended-menu').innerHTML = createMenuGrid(
+  menus.filter((menu) => menu.isRecommended),
+  { basePath, emptyMessage: '추천 메뉴가 없습니다.' },
+);
+
+document.getElementById('season-menu').innerHTML = createMenuGrid(
+  menus.filter((menu) => menu.categoryId === 'season'),
+  { basePath, emptyMessage: '시즌 메뉴가 없습니다.' },
+);
+
+const categoryNav = document.createElement('nav');
+categoryNav.className = 'category-tabs category-tabs--home';
+categoryNav.setAttribute('aria-label', '메뉴 카테고리');
+categoryNav.innerHTML = createCategoryTabs(categories, 'all', { basePath });
+document.querySelector('.page-hero__content').append(categoryNav);
