@@ -32,6 +32,8 @@ export function createOrder(orderData) {
     totalPrice: orderData.totalPrice,
     status: 'received',
     paymentStatus: 'before-payment',
+    channel: orderData.channel || 'online',
+    adminMemo: orderData.adminMemo || '',
     createdAt: new Date().toISOString(),
   };
 
@@ -61,4 +63,8 @@ export function cancelOrder(orderId) {
     status: 'canceled',
     canceledAt: new Date().toISOString(),
   });
+}
+
+export function deleteOrder(orderId) {
+  saveOrders(getOrders().filter((order) => order.id !== orderId));
 }

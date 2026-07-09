@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>재고 관리 | Libre Cafe Admin</title>
+    <link rel="stylesheet" href="../../../../shared/styles/reset.css" />
+    <link rel="stylesheet" href="../../../../shared/styles/base.css" />
+    <link rel="stylesheet" href="../../../../shared/styles/layout.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main>
+      <section class="page-hero page-hero--menu">
+        <div class="page-hero__content">
+          <p class="eyebrow">Inventory</p>
+          <h1>재고 관리</h1>
+          <p class="hero__description">원두, 우유, 시럽, 디저트 재고와 안전 재고 기준을 관리합니다.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="../../create/index.html">재고 등록</a>
+            <a class="button button--ghost" href="../../../order/read/list/index.html">주문 관리</a>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="menu-toolbar">
+          <label class="select-field">
+            <span>상태</span>
+            <select id="status-filter">
+              <option value="all">전체</option>
+              <option value="available">정상</option>
+              <option value="low">부족</option>
+              <option value="sold-out">품절</option>
+            </select>
+          </label>
+        </div>
+        <div class="result-summary" id="inventory-summary"></div>
+        <div class="order-list" id="inventory-list"></div>
+      </section>
+    </main>
+    <div id="app-footer"></div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
