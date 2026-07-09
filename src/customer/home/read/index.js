@@ -1,6 +1,7 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
 import { getCategories } from '../../../shared/services/category-service.js';
+import { getBanners, getNotices } from '../../../shared/services/content-service.js';
 import { getMenus } from '../../../shared/services/menu-service.js';
 import { createCategoryTabs, createMenuGrid } from '../../menu/_shared/menu-renderer.js';
 import { getCategoryCounts, getVisibleCategories } from '../../menu/_shared/menu-filter.js';
@@ -13,6 +14,29 @@ const allCategories = getCategories();
 const categories = getVisibleCategories(allCategories);
 const categoryCounts = getCategoryCounts(menus, allCategories);
 const basePath = '../../../..';
+const activeBanner = getBanners()
+  .filter((banner) => banner.isVisible)
+  .sort((first, second) => (first.sortOrder ?? 1) - (second.sortOrder ?? 1))[0];
+const visibleNotices = getNotices().filter((notice) => notice.isVisible);
+
+if (activeBanner) {
+  document.getElementById('home-banner-title').textContent = activeBanner.title;
+  document.getElementById('home-banner-description').textContent = activeBanner.description;
+  document.getElementById('home-banner-link').textContent = activeBanner.linkLabel || '메뉴 보기';
+  document.getElementById('home-banner-link').href = activeBanner.linkUrl || '../../../customer/menu/read/list/index.html';
+}
+
+document.getElementById('home-notices').innerHTML = visibleNotices.length
+  ? visibleNotices.slice(0, 3).map((notice) => `
+    <article class="order-card">
+      <div>
+        <p class="eyebrow">${notice.category}${notice.isPinned ? ' · 고정' : ''}</p>
+        <h3>${notice.title}</h3>
+        <p class="menu-card__meta">${notice.message}</p>
+      </div>
+    </article>
+  `).join('')
+  : '<p class="empty-state">등록된 공지사항이 없습니다.</p>';
 
 document.getElementById('category-list').innerHTML = categoryCounts.map((category) => `
   <a class="category-card" href="${basePath}/src/customer/menu/read/list/index.html?category=${category.id}">

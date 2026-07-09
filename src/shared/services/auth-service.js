@@ -126,3 +126,20 @@ export function withdrawCurrentCustomer() {
   saveCustomers(customers);
   clearSession();
 }
+
+export function updateCustomerStatus(customerId, status) {
+  const customers = getCustomers().map((customer) => {
+    if (customer.id !== customerId) {
+      return customer;
+    }
+
+    return {
+      ...customer,
+      status,
+      statusUpdatedAt: new Date().toISOString(),
+    };
+  });
+
+  saveCustomers(customers);
+  return getCustomerById(customerId);
+}

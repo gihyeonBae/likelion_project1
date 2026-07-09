@@ -1,9 +1,11 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
 import { getCategories } from '../../../shared/services/category-service.js';
+import { getBanners, getNotices } from '../../../shared/services/content-service.js';
 import { getInventoryItems } from '../../../shared/services/inventory-service.js';
 import { getMenus } from '../../../shared/services/menu-service.js';
 import { getOrders } from '../../../shared/services/order-service.js';
+import { getCustomers } from '../../../shared/services/auth-service.js';
 import { getComputedInventoryStatus } from '../../inventory/_shared/admin-inventory.js';
 
 document.getElementById('app-header').innerHTML = renderHeader('admin', '../../../..');
@@ -13,6 +15,9 @@ const menus = getMenus();
 const categories = getCategories();
 const orders = getOrders();
 const inventoryItems = getInventoryItems();
+const banners = getBanners();
+const notices = getNotices();
+const customers = getCustomers();
 const urgentInventoryCount = inventoryItems.filter((item) => ['low', 'sold-out'].includes(getComputedInventoryStatus(item))).length;
 
 document.getElementById('admin-summary').innerHTML = `
@@ -40,5 +45,15 @@ document.getElementById('admin-summary').innerHTML = `
     <p>Inventory</p>
     <h3>${inventoryItems.length}개 재고</h3>
     <span>주의 필요 ${urgentInventoryCount}개</span>
+  </a>
+  <a class="category-card" href="../../content/read/banner-list/index.html">
+    <p>Content</p>
+    <h3>배너 ${banners.length}개</h3>
+    <span>공지 ${notices.length}개 · 노출 공지 ${notices.filter((notice) => notice.isVisible).length}개</span>
+  </a>
+  <a class="category-card" href="../../customer/read/list/index.html">
+    <p>Customers</p>
+    <h3>${customers.length}명 고객</h3>
+    <span>활성 ${customers.filter((customer) => customer.status === 'active').length}명 · 정지 ${customers.filter((customer) => customer.status === 'blocked').length}명</span>
   </a>
 `;
