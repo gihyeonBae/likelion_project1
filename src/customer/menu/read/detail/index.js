@@ -58,7 +58,7 @@ detail.innerHTML = `
         <div class="menu-card__tags">${createOptionList(menu.options)}</div>
       </div>
       <div class="detail-actions">
-        <a class="button button--primary" href="${basePath}/src/customer/cart/read/index.html">장바구니 보기</a>
+        <a class="button button--primary" href="${basePath}/src/customer/cart/create/index.html?id=${menu.id}">장바구니 담기</a>
         <a class="button button--ghost" href="${basePath}/src/customer/menu/read/list/index.html?category=${menu.categoryId}">같은 카테고리 보기</a>
       </div>
     </div>
