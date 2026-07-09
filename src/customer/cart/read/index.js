@@ -24,3 +24,10 @@ cartList.innerHTML = cartItems.length
   `;
 
 document.getElementById('cart-total').textContent = formatCurrency(calculateCartTotal(cartItems, menus));
+
+if (!cartItems.length) {
+  const checkoutLink = document.getElementById('checkout-link');
+  checkoutLink.setAttribute('aria-disabled', 'true');
+  checkoutLink.classList.add('is-disabled');
+  checkoutLink.href = '#';
+}
