@@ -3,6 +3,8 @@ const NAV_ITEMS = [
   { id: 'menu', label: '메뉴', href: 'src/customer/menu/read/list/index.html' },
   { id: 'cart', label: '장바구니', href: 'src/customer/cart/read/index.html' },
   { id: 'order', label: '주문내역', href: 'src/customer/order/read/list/index.html' },
+  { id: 'account', label: '내 정보', href: 'src/customer/account/read/profile/index.html' },
+  { id: 'inquiry', label: '문의', href: 'src/customer/inquiry/read/list/index.html' },
   { id: 'admin', label: '관리자', href: 'src/admin/dashboard/read/index.html' },
 ];
 
