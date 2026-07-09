@@ -67,3 +67,8 @@ h3 {
   color: var(--color-ink);
   background: transparent;
 }
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
