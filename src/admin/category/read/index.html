@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>관리자 대시보드 | Libre Cafe</title>
+    <title>카테고리 관리 | Libre Cafe Admin</title>
     <link rel="stylesheet" href="../../../shared/styles/reset.css" />
     <link rel="stylesheet" href="../../../shared/styles/base.css" />
     <link rel="stylesheet" href="../../../shared/styles/layout.css" />
@@ -13,17 +13,17 @@
     <main>
       <section class="page-hero page-hero--menu">
         <div class="page-hero__content">
-          <p class="eyebrow">Admin</p>
-          <h1>관리자 대시보드</h1>
-          <p class="hero__description">카페 메뉴와 카테고리를 관리하고 고객 화면의 메뉴판을 업데이트합니다.</p>
+          <p class="eyebrow">Admin category</p>
+          <h1>카테고리 관리</h1>
+          <p class="hero__description">고객 메뉴판에 노출되는 카테고리와 노출 순서를 관리합니다.</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="../../menu/read/list/index.html">메뉴 관리</a>
-            <a class="button button--ghost" href="../../category/read/index.html">카테고리 관리</a>
+            <a class="button button--primary" href="../create/index.html">카테고리 등록</a>
+            <a class="button button--ghost" href="../../menu/read/list/index.html">메뉴 관리</a>
           </div>
         </div>
       </section>
       <section class="section">
-        <div class="category-grid" id="admin-summary"></div>
+        <div class="order-list" id="category-list"></div>
       </section>
     </main>
     <div id="app-footer"></div>

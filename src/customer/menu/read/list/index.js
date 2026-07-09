@@ -1,7 +1,7 @@
 import { renderHeader } from '../../../../shared/components/header.js';
 import { renderFooter } from '../../../../shared/components/footer.js';
+import { getCategories } from '../../../../shared/services/category-service.js';
 import { getMenus } from '../../../../shared/services/menu-service.js';
-import { CATEGORIES } from '../../../../../data/categories.js';
 import { createCategoryTabs, createMenuGrid } from '../../_shared/menu-renderer.js';
 import { filterMenus, getCategoryById, getVisibleCategories, sortMenus } from '../../_shared/menu-filter.js';
 
@@ -13,7 +13,8 @@ const params = new URLSearchParams(window.location.search);
 const activeCategoryId = params.get('category') || 'all';
 const activeSort = params.get('sort') || 'recommended';
 const menus = getMenus();
-const categories = getVisibleCategories(CATEGORIES);
+const allCategories = getCategories();
+const categories = getVisibleCategories(allCategories);
 const sortSelect = document.getElementById('sort-select');
 
 sortSelect.value = activeSort;
@@ -24,7 +25,7 @@ function renderMenus() {
     filterMenus(menus, { categoryId: activeCategoryId }),
     sortSelect.value,
   );
-  const category = getCategoryById(CATEGORIES, activeCategoryId);
+  const category = getCategoryById(allCategories, activeCategoryId);
   const label = category ? category.nameKo : '전체';
 
   document.getElementById('result-summary').textContent = `${label} 메뉴 ${sortedMenus.length}개`;
