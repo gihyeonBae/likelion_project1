@@ -1,7 +1,7 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
+import { getCategories } from '../../../shared/services/category-service.js';
 import { getMenus } from '../../../shared/services/menu-service.js';
-import { CATEGORIES } from '../../../../data/categories.js';
 import { createCategoryTabs, createMenuGrid } from '../../menu/_shared/menu-renderer.js';
 import { getCategoryCounts, getVisibleCategories } from '../../menu/_shared/menu-filter.js';
 
@@ -9,8 +9,9 @@ document.getElementById('app-header').innerHTML = renderHeader('home', '../../..
 document.getElementById('app-footer').innerHTML = renderFooter();
 
 const menus = getMenus();
-const categories = getVisibleCategories(CATEGORIES);
-const categoryCounts = getCategoryCounts(menus, CATEGORIES);
+const allCategories = getCategories();
+const categories = getVisibleCategories(allCategories);
+const categoryCounts = getCategoryCounts(menus, allCategories);
 const basePath = '../../../..';
 
 document.getElementById('category-list').innerHTML = categoryCounts.map((category) => `

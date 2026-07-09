@@ -1,8 +1,8 @@
 import { renderHeader } from '../../../../shared/components/header.js';
 import { renderFooter } from '../../../../shared/components/footer.js';
+import { getCategories } from '../../../../shared/services/category-service.js';
 import { getMenus } from '../../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../../shared/utils/format.js';
-import { CATEGORIES } from '../../../../../data/categories.js';
 import { getMenuCategoryLabel } from '../../_shared/menu-filter.js';
 
 const basePath = '../../../../..';
@@ -13,6 +13,7 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 const params = new URLSearchParams(window.location.search);
 const menuId = params.get('id');
 const menu = getMenus().find((item) => item.id === menuId) || getMenus()[0];
+const categories = getCategories();
 const detail = document.getElementById('menu-detail');
 
 function createOptionList(options) {
@@ -47,7 +48,7 @@ detail.innerHTML = `
       <span>${menu.nameEn}</span>
     </div>
     <div class="detail-content">
-      <p class="eyebrow">${getMenuCategoryLabel(CATEGORIES, menu)}</p>
+      <p class="eyebrow">${getMenuCategoryLabel(categories, menu)}</p>
       <h1>${menu.nameKo}</h1>
       <p class="detail-content__en">${menu.nameEn}</p>
       <p class="hero__description">${menu.description}</p>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메뉴 관리 | Libre Cafe Admin</title>
+    <link rel="stylesheet" href="../../../../shared/styles/reset.css" />
+    <link rel="stylesheet" href="../../../../shared/styles/base.css" />
+    <link rel="stylesheet" href="../../../../shared/styles/layout.css" />
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main>
+      <section class="page-hero page-hero--menu">
+        <div class="page-hero__content">
+          <p class="eyebrow">Admin menu</p>
+          <h1>메뉴 관리</h1>
+          <p class="hero__description">커피, 음료, 디저트, 베이커리 메뉴를 등록하고 판매 상태를 관리합니다.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="../../create/index.html">메뉴 등록</a>
+            <a class="button button--ghost" href="../../../category/read/index.html">카테고리 관리</a>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="menu-toolbar">
+          <label class="select-field">
+            <span>카테고리</span>
+            <select id="category-filter"></select>
+          </label>
+          <label class="select-field">
+            <span>상태</span>
+            <select id="status-filter">
+              <option value="all">전체</option>
+              <option value="on-sale">판매중</option>
+              <option value="sold-out">품절</option>
+            </select>
+          </label>
+        </div>
+        <div class="result-summary" id="menu-summary"></div>
+        <div class="order-list" id="admin-menu-list"></div>
+      </section>
+    </main>
+    <div id="app-footer"></div>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
