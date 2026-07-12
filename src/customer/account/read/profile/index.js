@@ -2,7 +2,6 @@ import { renderHeader } from '../../../../shared/components/header.js';
 import { renderFooter } from '../../../../shared/components/footer.js';
 import { getCurrentCustomer } from '../../../../shared/services/auth-service.js';
 import { getOrders } from '../../../../shared/services/order-service.js';
-import { getCurrentCustomerInquiries } from '../../../../shared/services/inquiry-service.js';
 
 const basePath = '../../../../..';
 
@@ -22,7 +21,6 @@ if (!customer) {
   `;
 } else {
   const orderCount = getOrders().length;
-  const inquiryCount = getCurrentCustomerInquiries().length;
 
   container.innerHTML = `
     <article class="confirm-panel">
@@ -32,11 +30,9 @@ if (!customer) {
         <div><dt>이메일</dt><dd>${customer.email}</dd></div>
         <div><dt>연락처</dt><dd>${customer.phone}</dd></div>
         <div><dt>주문</dt><dd>${orderCount}건</dd></div>
-        <div><dt>문의</dt><dd>${inquiryCount}건</dd></div>
       </dl>
       <div class="detail-actions">
         <a class="button button--primary" href="../../update/profile/index.html">내 정보 수정</a>
-        <a class="button button--ghost" href="../../../inquiry/read/list/index.html">내 문의</a>
         <a class="button button--ghost" href="../../delete/logout/index.html">로그아웃</a>
         <a class="button button--ghost" href="../../delete/withdraw/index.html">회원 탈퇴</a>
       </div>

@@ -1,6 +1,6 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
-import { deleteBanner, deleteNotice, getBannerById, getNoticeById } from '../../../shared/services/content-service.js';
+import { deleteBanner, getBannerById } from '../../../shared/services/content-service.js';
 
 const basePath = '../../../..';
 
@@ -8,17 +8,15 @@ document.getElementById('app-header').innerHTML = renderHeader('admin', basePath
 document.getElementById('app-footer').innerHTML = renderFooter();
 
 const params = new URLSearchParams(window.location.search);
-const type = params.get('type');
 const id = params.get('id');
-const content = type === 'notice' ? getNoticeById(id) : getBannerById(id);
-const listPath = type === 'notice' ? '../read/notice-list/index.html' : '../read/banner-list/index.html';
-const label = type === 'notice' ? '공지사항' : '홈 배너';
+const content = getBannerById(id);
+const listPath = '../read/banner-list/index.html';
 
 document.getElementById('content-delete').innerHTML = content
   ? `
     <section class="confirm-panel">
       <p class="eyebrow">Delete content</p>
-      <h1>${label} 삭제</h1>
+      <h1>홈 배너 삭제</h1>
       <p class="hero__description">${content.title} 항목을 삭제합니다.</p>
       <div class="detail-actions">
         <button class="button button--primary" id="delete-content" type="button">삭제</button>
@@ -34,11 +32,6 @@ document.getElementById('content-delete').innerHTML = content
   `;
 
 document.getElementById('delete-content')?.addEventListener('click', () => {
-  if (type === 'notice') {
-    deleteNotice(id);
-  } else {
-    deleteBanner(id);
-  }
-
+  deleteBanner(id);
   window.location.href = listPath;
 });

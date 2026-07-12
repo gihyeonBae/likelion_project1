@@ -23,7 +23,7 @@ if (!order) {
   statusLink.classList.add('is-disabled');
   deleteLink.classList.add('is-disabled');
 } else {
-  container.innerHTML = createAdminOrderDetail(order);
+  container.innerHTML = createAdminOrderDetail(order, { basePath });
   statusLink.href = `../../update/status/index.html?id=${order.id}`;
   deleteLink.href = `../../delete/index.html?id=${order.id}`;
 }

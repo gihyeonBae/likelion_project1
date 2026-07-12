@@ -33,7 +33,7 @@ container.innerHTML = order
         </div>
       </section>
       <section class="cart-list">
-        ${createOrderItemRows(order.items)}
+        ${createOrderItemRows(order.items, { basePath })}
       </section>
     </article>
   `

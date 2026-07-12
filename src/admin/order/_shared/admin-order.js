@@ -31,7 +31,7 @@ export function createAdminOrderRow(order, { basePath }) {
   `;
 }
 
-export function createAdminOrderDetail(order) {
+export function createAdminOrderDetail(order, { basePath = '../../../../..' } = {}) {
   return `
     <article class="order-detail-layout">
       <section class="confirm-panel">
@@ -47,7 +47,7 @@ export function createAdminOrderDetail(order) {
         <strong class="detail-price">${formatCurrency(order.totalPrice)}</strong>
       </section>
       <section class="cart-list">
-        ${createOrderItemRows(order.items)}
+        ${createOrderItemRows(order.items, { basePath })}
       </section>
     </article>
   `;

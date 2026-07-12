@@ -1,16 +1,18 @@
 import { formatCurrency } from '../utils/format.js';
+import { createMenuImage } from '../utils/image.js';
 
 export function createMenuCard(menu, options = {}) {
   const tags = menu.tags.map((tag) => `<span class="tag">${tag}</span>`).join('');
   const statusLabel = menu.status === 'sold-out' ? '품절' : '주문 가능';
   const detailHref = options.detailHref ?? '#';
   const actionLabel = menu.status === 'sold-out' ? '자세히 보기' : '메뉴 보기';
+  const image = createMenuImage(menu, { basePath: options.basePath ?? '.', className: 'menu-card__photo' });
 
   return `
     <article class="menu-card menu-card--${menu.imageTone ?? 'coffee'}">
       <a class="menu-card__link" href="${detailHref}">
         <div class="menu-card__image" role="img" aria-label="${menu.nameKo} 이미지 영역">
-        ${menu.nameEn}
+          ${image}
         </div>
         <div class="menu-card__body">
           <div class="menu-card__name">

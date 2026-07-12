@@ -83,6 +83,7 @@ document.getElementById('pos-order-form')?.addEventListener('submit', (event) =>
     menuId: menu.id,
     menuNameKo: menu.nameKo,
     menuNameEn: menu.nameEn,
+    imageUrl: menu.imageUrl,
     imageTone: menu.imageTone,
     unitPrice: menu.price,
     quantity,

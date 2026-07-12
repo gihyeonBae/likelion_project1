@@ -1,12 +1,9 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
 import { getCategories } from '../../../shared/services/category-service.js';
-import { getBanners, getNotices } from '../../../shared/services/content-service.js';
-import { getInventoryItems } from '../../../shared/services/inventory-service.js';
 import { getMenus } from '../../../shared/services/menu-service.js';
 import { getOrders } from '../../../shared/services/order-service.js';
 import { getCustomers } from '../../../shared/services/auth-service.js';
-import { getComputedInventoryStatus } from '../../inventory/_shared/admin-inventory.js';
 
 document.getElementById('app-header').innerHTML = renderHeader('admin', '../../../..');
 document.getElementById('app-footer').innerHTML = renderFooter();
@@ -14,11 +11,7 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 const menus = getMenus();
 const categories = getCategories();
 const orders = getOrders();
-const inventoryItems = getInventoryItems();
-const banners = getBanners();
-const notices = getNotices();
 const customers = getCustomers();
-const urgentInventoryCount = inventoryItems.filter((item) => ['low', 'sold-out'].includes(getComputedInventoryStatus(item))).length;
 
 document.getElementById('admin-summary').innerHTML = `
   <a class="category-card" href="../../menu/read/list/index.html">
@@ -40,16 +33,6 @@ document.getElementById('admin-summary').innerHTML = `
     <p>Orders</p>
     <h3>${orders.length}건 주문</h3>
     <span>진행중 ${orders.filter((order) => !['complete', 'canceled'].includes(order.status)).length}건 · 완료 ${orders.filter((order) => order.status === 'complete').length}건</span>
-  </a>
-  <a class="category-card" href="../../inventory/read/list/index.html">
-    <p>Inventory</p>
-    <h3>${inventoryItems.length}개 재고</h3>
-    <span>주의 필요 ${urgentInventoryCount}개</span>
-  </a>
-  <a class="category-card" href="../../content/read/banner-list/index.html">
-    <p>Content</p>
-    <h3>배너 ${banners.length}개</h3>
-    <span>공지 ${notices.length}개 · 노출 공지 ${notices.filter((notice) => notice.isVisible).length}개</span>
   </a>
   <a class="category-card" href="../../customer/read/list/index.html">
     <p>Customers</p>

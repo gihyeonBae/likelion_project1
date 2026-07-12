@@ -214,36 +214,6 @@
 - `src/customer/account/delete/logout/index.html`
 - `src/customer/account/delete/withdraw/index.html`
 
-### 4.1.6 문의
-
-목표: 고객이 주문이나 메뉴 관련 문의를 남기고 답변을 확인한다.
-
-#### Create
-
-- 문의 작성
-
-#### Read
-
-- 문의 목록 조회
-- 문의 상세 조회
-- 답변 상태 조회
-
-#### Update
-
-- 답변 전 문의 수정
-
-#### Delete
-
-- 답변 전 문의 삭제
-
-화면:
-
-- `src/customer/inquiry/create/index.html`
-- `src/customer/inquiry/read/list/index.html`
-- `src/customer/inquiry/read/detail/index.html`
-- `src/customer/inquiry/update/index.html`
-- `src/customer/inquiry/delete/index.html`
-
 ## 4.2 관리자
 
 관리자는 메뉴, 주문, 재고, 카페 콘텐츠를 관리하는 역할자다.
@@ -262,7 +232,6 @@
 - 오늘 매출 요약 조회
 - 품절 메뉴 조회
 - 최근 주문 조회
-- 최근 문의 조회
 
 #### Update
 
@@ -418,46 +387,39 @@
 
 ### 4.2.6 콘텐츠 관리
 
-목표: 홈 배너, 시즌 메뉴 소개, 공지사항을 관리한다.
+목표: 홈 배너와 시즌 메뉴 소개 콘텐츠를 관리한다.
 
 #### Create
 
 - 배너 등록
-- 공지사항 등록
 - 시즌 소개 콘텐츠 등록
 
 #### Read
 
 - 배너 목록 조회
-- 공지사항 목록 조회
 - 시즌 콘텐츠 조회
 
 #### Update
 
 - 배너 수정
-- 공지사항 수정
 - 시즌 콘텐츠 수정
 - 노출 여부 수정
 
 #### Delete
 
 - 배너 삭제
-- 공지사항 삭제
 - 시즌 콘텐츠 삭제
 
 화면:
 
 - `src/admin/content/create/banner/index.html`
-- `src/admin/content/create/notice/index.html`
 - `src/admin/content/read/banner-list/index.html`
-- `src/admin/content/read/notice-list/index.html`
 - `src/admin/content/update/banner/index.html`
-- `src/admin/content/update/notice/index.html`
 - `src/admin/content/delete/index.html`
 
 ### 4.2.7 고객 관리
 
-목표: 가입 고객과 문의 내역을 확인한다.
+목표: 가입 고객의 상태와 연락처 정보를 확인한다.
 
 #### Create
 
@@ -468,7 +430,6 @@
 - 고객 목록 조회
 - 고객 상세 조회
 - 고객 주문 내역 조회
-- 고객 문의 내역 조회
 
 #### Update
 
@@ -602,11 +563,6 @@ likelion_project1/
     │   │   ├── read/
     │   │   ├── update/
     │   │   └── delete/
-    │   └── inquiry/
-    │       ├── create/
-    │       ├── read/
-    │       ├── update/
-    │       └── delete/
     └── admin/
         ├── dashboard/
         │   ├── read/
@@ -755,16 +711,13 @@ likelion_project1/
 - [x] 결제 전 주문 수정 구현
 - [x] 결제 전 주문 취소 구현
 
-### 5단계: 고객 - 계정/문의 CRUD
+### 5단계: 고객 - 계정 CRUD
 
 - [x] 회원가입 구현
 - [x] 로그인 구현
 - [x] 내 정보 조회 구현
 - [x] 내 정보 수정 구현
 - [x] 로그아웃 구현
-- [x] 문의 작성 구현
-- [x] 문의 조회 구현
-- [x] 문의 수정/삭제 구현
 
 ### 6단계: 관리자 - 메뉴/카테고리 CRUD
 
@@ -794,7 +747,6 @@ likelion_project1/
 - [x] 홈 배너 조회 구현
 - [x] 홈 배너 수정 구현
 - [x] 홈 배너 삭제 구현
-- [x] 공지사항 CRUD 구현
 - [x] 고객 목록/상세 조회 구현
 - [x] 고객 상태 수정 구현
 
@@ -818,7 +770,7 @@ likelion_project1/
 - [ ] 7순위: 관리자 주문 관리
 - [ ] 8순위: 재고 관리
 - [ ] 9순위: 고객 계정
-- [ ] 10순위: 문의/콘텐츠 관리
+- [ ] 10순위: 콘텐츠 관리
 
 ## 9. 디자인 방향
 

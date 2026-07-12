@@ -1,4 +1,5 @@
 import { formatCurrency } from '../../../shared/utils/format.js';
+import { createMenuImage } from '../../../shared/utils/image.js';
 import { formatCartOptions } from '../../cart/_shared/cart-renderer.js';
 
 export function createOrderItemSnapshot(cartItem, menu) {
@@ -6,6 +7,7 @@ export function createOrderItemSnapshot(cartItem, menu) {
     menuId: cartItem.menuId,
     menuNameKo: menu?.nameKo ?? '삭제된 메뉴',
     menuNameEn: menu?.nameEn ?? 'Unavailable',
+    imageUrl: menu?.imageUrl ?? '',
     imageTone: menu?.imageTone ?? 'coffee',
     unitPrice: menu?.price ?? 0,
     quantity: cartItem.quantity,
@@ -44,11 +46,15 @@ export function formatOrderDate(value) {
   }).format(new Date(value));
 }
 
-export function createOrderItemRows(items) {
+export function createOrderItemRows(items, { basePath = '../../../../..' } = {}) {
   return items.map((item) => `
     <article class="cart-item">
       <div class="cart-item__visual menu-card--${item.imageTone}">
-        <span>${item.menuNameEn}</span>
+        ${createMenuImage({
+          nameKo: item.menuNameKo,
+          nameEn: item.menuNameEn,
+          imageUrl: item.imageUrl,
+        }, { basePath, className: 'cart-item__photo' })}
       </div>
       <div class="cart-item__body">
         <p class="eyebrow">${item.menuNameEn}</p>

@@ -3,6 +3,7 @@ import { renderFooter } from '../../../shared/components/footer.js';
 import { addCartItem } from '../../../shared/services/cart-service.js';
 import { getMenuById } from '../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../shared/utils/format.js';
+import { createMenuImage } from '../../../shared/utils/image.js';
 
 const basePath = '../../../..';
 
@@ -87,7 +88,7 @@ if (!menu) {
   container.innerHTML = `
     <article class="cart-form-layout">
       <div class="detail-visual menu-card--${menu.imageTone}">
-        <span>${menu.nameEn}</span>
+        ${createMenuImage(menu, { basePath, className: 'detail-visual__photo', lazy: false })}
       </div>
       <form class="panel-form" id="cart-form">
         <p class="eyebrow">Add to cart</p>

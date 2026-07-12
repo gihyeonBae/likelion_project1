@@ -1,4 +1,5 @@
 import { formatCurrency } from '../../../shared/utils/format.js';
+import { createMenuImage } from '../../../shared/utils/image.js';
 
 export function getCartMenu(cartItem, menus) {
   return menus.find((menu) => menu.id === cartItem.menuId) || null;
@@ -52,7 +53,7 @@ export function createCartItemCard(cartItem, menu, { basePath }) {
   return `
     <article class="cart-item">
       <div class="cart-item__visual menu-card--${menu.imageTone}">
-        <span>${menu.nameEn}</span>
+        ${createMenuImage(menu, { basePath, className: 'cart-item__photo' })}
       </div>
       <div class="cart-item__body">
         <p class="eyebrow">${menu.categoryId}</p>

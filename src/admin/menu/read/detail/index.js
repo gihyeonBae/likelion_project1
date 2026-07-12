@@ -3,6 +3,7 @@ import { renderFooter } from '../../../../shared/components/footer.js';
 import { getCategories } from '../../../../shared/services/category-service.js';
 import { getMenuById } from '../../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../../shared/utils/format.js';
+import { createMenuImage } from '../../../../shared/utils/image.js';
 import { getCategoryLabel, getStatusLabel } from '../../_shared/admin-menu.js';
 
 const basePath = '../../../../..';
@@ -18,7 +19,7 @@ container.innerHTML = menu
   ? `
     <article class="detail-layout">
       <div class="detail-visual menu-card--${menu.imageTone}">
-        <span>${menu.nameEn}</span>
+        ${createMenuImage(menu, { basePath, className: 'detail-visual__photo', lazy: false })}
       </div>
       <div class="detail-content">
         <p class="eyebrow">${getCategoryLabel(categories, menu.categoryId)} · ${getStatusLabel(menu.status)}</p>

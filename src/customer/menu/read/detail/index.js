@@ -3,6 +3,7 @@ import { renderFooter } from '../../../../shared/components/footer.js';
 import { getCategories } from '../../../../shared/services/category-service.js';
 import { getMenus } from '../../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../../shared/utils/format.js';
+import { createMenuImage } from '../../../../shared/utils/image.js';
 import { getMenuCategoryLabel } from '../../_shared/menu-filter.js';
 
 const basePath = '../../../../..';
@@ -45,7 +46,7 @@ function createOptionList(options) {
 detail.innerHTML = `
   <article class="detail-layout">
     <div class="detail-visual menu-card--${menu.imageTone}">
-      <span>${menu.nameEn}</span>
+      ${createMenuImage(menu, { basePath, className: 'detail-visual__photo', lazy: false })}
     </div>
     <div class="detail-content">
       <p class="eyebrow">${getMenuCategoryLabel(categories, menu)}</p>

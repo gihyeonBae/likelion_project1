@@ -6,6 +6,7 @@ export function createMenuGrid(menus, { basePath, emptyMessage = '조건에 맞�
   }
 
   return menus.map((menu) => createMenuCard(menu, {
+    basePath,
     detailHref: `${basePath}/src/customer/menu/read/detail/index.html?id=${encodeURIComponent(menu.id)}`,
   })).join('');
 }
