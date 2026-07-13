@@ -1,6 +1,6 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
-import { getCartItemById, updateCartItem } from '../../../shared/services/cart-service.js';
+import { createCartMenuSnapshot, getCartItemById, updateCartItem } from '../../../shared/services/cart-service.js';
 import { getMenuById } from '../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../shared/utils/format.js';
 import { createMenuImage } from '../../../shared/utils/image.js';
@@ -12,7 +12,8 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 
 const params = new URLSearchParams(window.location.search);
 const cartItem = getCartItemById(params.get('id'));
-const menu = cartItem ? await getMenuById(cartItem.menuId) : null;
+const liveMenu = cartItem ? await getMenuById(cartItem.menuId) : null;
+const menu = liveMenu || cartItem?.menuSnapshot || null;
 const container = document.getElementById('cart-update');
 
 function isSelected(optionValue, selectedValue) {
@@ -112,6 +113,7 @@ if (!cartItem || !menu) {
     const formData = new FormData(event.currentTarget);
     updateCartItem(cartItem.id, {
       quantity: formData.get('quantity'),
+      menuSnapshot: createCartMenuSnapshot(menu),
       options: {
         temperature: formData.get('temperature') || undefined,
         size: formData.get('size') || undefined,

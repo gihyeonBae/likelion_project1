@@ -28,13 +28,13 @@ export async function getSupabaseClient() {
 }
 
 export async function runSupabaseQuery(queryFactory, fallbackValue, label) {
-  const client = await getSupabaseClient();
-
-  if (!client) {
-    return fallbackValue;
-  }
-
   try {
+    const client = await getSupabaseClient();
+
+    if (!client) {
+      return fallbackValue;
+    }
+
     const { data, error } = await queryFactory(client);
 
     if (error) {

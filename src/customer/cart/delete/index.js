@@ -11,7 +11,8 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 const params = new URLSearchParams(window.location.search);
 const shouldClear = params.get('clear') === 'true';
 const cartItem = getCartItemById(params.get('id'));
-const menu = cartItem ? await getMenuById(cartItem.menuId) : null;
+const liveMenu = cartItem ? await getMenuById(cartItem.menuId) : null;
+const menu = liveMenu || cartItem?.menuSnapshot || null;
 const container = document.getElementById('cart-delete');
 
 container.innerHTML = `

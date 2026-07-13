@@ -2,7 +2,7 @@ import { formatCurrency } from '../../../shared/utils/format.js';
 import { createMenuImage } from '../../../shared/utils/image.js';
 
 export function getCartMenu(cartItem, menus) {
-  return menus.find((menu) => menu.id === cartItem.menuId) || null;
+  return menus.find((menu) => menu.id === cartItem.menuId) || cartItem.menuSnapshot || null;
 }
 
 export function calculateCartLineTotal(cartItem, menu) {

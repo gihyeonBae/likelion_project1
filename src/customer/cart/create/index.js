@@ -1,6 +1,6 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
-import { addCartItem } from '../../../shared/services/cart-service.js';
+import { addCartItem, createCartMenuSnapshot } from '../../../shared/services/cart-service.js';
 import { getMenuById } from '../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../shared/utils/format.js';
 import { createMenuImage } from '../../../shared/utils/image.js';
@@ -115,6 +115,7 @@ if (!menu) {
     addCartItem({
       menuId: menu.id,
       quantity: formData.get('quantity'),
+      menuSnapshot: createCartMenuSnapshot(menu),
       options: {
         temperature: formData.get('temperature') || undefined,
         size: formData.get('size') || undefined,

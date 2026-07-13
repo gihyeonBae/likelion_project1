@@ -11,6 +11,25 @@ function normalizeQuantity(quantity) {
   return Number.isNaN(nextQuantity) || nextQuantity < 1 ? 1 : nextQuantity;
 }
 
+export function createCartMenuSnapshot(menu) {
+  if (!menu) {
+    return null;
+  }
+
+  return {
+    id: menu.id,
+    nameKo: menu.nameKo,
+    nameEn: menu.nameEn,
+    categoryId: menu.categoryId,
+    description: menu.description,
+    price: Number(menu.price) || 0,
+    imageUrl: menu.imageUrl || '',
+    imageTone: menu.imageTone || 'coffee',
+    options: menu.options ?? {},
+    status: menu.status || 'on-sale',
+  };
+}
+
 export function getCartItems() {
   return readStorage(CART_STORAGE_KEY, []);
 }
@@ -23,12 +42,13 @@ export function getCartItemById(cartItemId) {
   return getCartItems().find((item) => item.id === cartItemId) || null;
 }
 
-export function addCartItem({ menuId, quantity = 1, options = {} }) {
+export function addCartItem({ menuId, quantity = 1, options = {}, menuSnapshot = null }) {
   const cartItem = {
     id: createCartItemId(),
     menuId,
     quantity: normalizeQuantity(quantity),
     options,
+    menuSnapshot,
     selected: true,
     createdAt: new Date().toISOString(),
   };

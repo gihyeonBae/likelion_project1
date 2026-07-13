@@ -1,6 +1,6 @@
 import { formatCurrency } from '../../../shared/utils/format.js';
 import { createMenuImage } from '../../../shared/utils/image.js';
-import { formatCartOptions } from '../../cart/_shared/cart-renderer.js';
+import { formatCartOptions, getCartMenu } from '../../cart/_shared/cart-renderer.js';
 
 export function createOrderItemSnapshot(cartItem, menu) {
   return {
@@ -17,10 +17,7 @@ export function createOrderItemSnapshot(cartItem, menu) {
 }
 
 export function createOrderItemsFromCart(cartItems, menus) {
-  return cartItems.map((cartItem) => createOrderItemSnapshot(
-    cartItem,
-    menus.find((menu) => menu.id === cartItem.menuId),
-  ));
+  return cartItems.map((cartItem) => createOrderItemSnapshot(cartItem, getCartMenu(cartItem, menus)));
 }
 
 export function calculateOrderItemsTotal(items) {

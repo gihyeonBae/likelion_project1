@@ -3,7 +3,7 @@ import { renderFooter } from '../../../../shared/components/footer.js';
 import { getCartItems } from '../../../../shared/services/cart-service.js';
 import { getMenus } from '../../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../../shared/utils/format.js';
-import { calculateCartTotal, createCartItemCard } from '../../../cart/_shared/cart-renderer.js';
+import { calculateCartTotal, createCartItemCard, getCartMenu } from '../../../cart/_shared/cart-renderer.js';
 
 const basePath = '../../../../..';
 
@@ -15,7 +15,7 @@ const menus = await getMenus();
 const checkoutItems = document.getElementById('checkout-items');
 
 checkoutItems.innerHTML = cartItems.length
-  ? cartItems.map((item) => createCartItemCard(item, menus.find((menu) => menu.id === item.menuId), { basePath })).join('')
+  ? cartItems.map((item) => createCartItemCard(item, getCartMenu(item, menus), { basePath })).join('')
   : `
     <div class="empty-state">
       <p>주문할 메뉴가 없습니다.</p>
