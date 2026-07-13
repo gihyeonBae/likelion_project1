@@ -7,6 +7,14 @@ export function resolveAssetPath(path, basePath = '.') {
     return path;
   }
 
+  if (path.startsWith('/')) {
+    return path;
+  }
+
+  if (path.startsWith('./assets/')) {
+    return `/${path.replace(/^\.\//, '')}`;
+  }
+
   const normalizedBase = basePath.replace(/\/$/, '');
   const normalizedPath = path.replace(/^\.\//, '');
   return `${normalizedBase}/${normalizedPath}`;

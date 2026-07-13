@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>장바구니 | Libre Cafe</title>
-    <link rel="stylesheet" href="../../../shared/styles/reset.css" />
-    <link rel="stylesheet" href="../../../shared/styles/base.css" />
-    <link rel="stylesheet" href="../../../shared/styles/layout.css" />
+    <link rel="stylesheet" href="/src/shared/styles/reset.css" />
+    <link rel="stylesheet" href="/src/shared/styles/base.css" />
+    <link rel="stylesheet" href="/src/shared/styles/layout.css" />
   </head>
   <body>
     <div id="app-header"></div>
@@ -17,8 +17,8 @@
           <h1>장바구니</h1>
           <p class="hero__description">담아둔 메뉴의 수량과 옵션을 확인하고 수정할 수 있습니다.</p>
           <div class="hero__actions">
-            <a class="button button--primary" href="../../menu/read/list/index.html">메뉴 더 담기</a>
-            <a class="button button--ghost" href="../delete/index.html?clear=true">전체 비우기</a>
+            <a class="button button--primary" href="/src/customer/menu/read/list/index.html">메뉴 더 담기</a>
+            <a class="button button--ghost" href="/src/customer/cart/delete/index.html?clear=true">전체 비우기</a>
           </div>
         </div>
       </section>
@@ -30,12 +30,12 @@
             <p class="eyebrow">Summary</p>
             <h2>주문 예정 금액</h2>
             <strong id="cart-total">0원</strong>
-            <a class="button button--primary" id="checkout-link" href="../../order/read/checkout/index.html">주문서 확인</a>
+            <a class="button button--primary" id="checkout-link" href="/src/customer/order/read/checkout/index.html">주문서 확인</a>
           </aside>
         </div>
       </section>
     </main>
     <div id="app-footer"></div>
-    <script type="module" src="./index.js"></script>
+    <script type="module" src="/src/customer/cart/read/index.js"></script>
   </body>
 </html>

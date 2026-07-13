@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>주문서 확인 | Libre Cafe</title>
-    <link rel="stylesheet" href="../../../../shared/styles/reset.css" />
-    <link rel="stylesheet" href="../../../../shared/styles/base.css" />
-    <link rel="stylesheet" href="../../../../shared/styles/layout.css" />
+    <link rel="stylesheet" href="/src/shared/styles/reset.css" />
+    <link rel="stylesheet" href="/src/shared/styles/base.css" />
+    <link rel="stylesheet" href="/src/shared/styles/layout.css" />
   </head>
   <body>
     <div id="app-header"></div>
@@ -25,13 +25,13 @@
             <p class="eyebrow">Total</p>
             <h2>결제 예정 금액</h2>
             <strong id="checkout-total">0원</strong>
-            <a class="button button--primary" id="create-order-link" href="../../create/index.html">픽업 정보 입력</a>
-            <a class="button button--ghost" href="../../../cart/read/index.html">장바구니 수정</a>
+            <a class="button button--primary" id="create-order-link" href="/src/customer/order/create/index.html">픽업 정보 입력</a>
+            <a class="button button--ghost" href="/src/customer/cart/read/index.html">장바구니 수정</a>
           </aside>
         </div>
       </section>
     </main>
     <div id="app-footer"></div>
-    <script type="module" src="./index.js"></script>
+    <script type="module" src="/src/customer/order/read/checkout/index.js"></script>
   </body>
 </html>

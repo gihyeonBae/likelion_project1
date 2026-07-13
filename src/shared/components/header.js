@@ -10,13 +10,13 @@ const NAV_ITEMS = [
 export function renderHeader(activeId = 'home', basePath = '.') {
   const navLinks = NAV_ITEMS.map((item) => {
     const current = item.id === activeId ? ' aria-current="page"' : '';
-    return `<a href="${basePath}/${item.href}"${current}>${item.label}</a>`;
+    return `<a href="/${item.href}"${current}>${item.label}</a>`;
   }).join('');
 
   return `
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="brand" href="${basePath}/index.html" aria-label="gh cafe 홈">
+        <a class="brand" href="/index.html" aria-label="gh cafe 홈">
           <span class="brand__mark">GH</span>
           <span>gh cafe</span>
         </a>

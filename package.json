@@ -1,6 +1,7 @@
 {
   "name": "gh-cafe-order",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "serve . -l tcp://0.0.0.0:${PORT:-3133} -c serve.json"
   },
