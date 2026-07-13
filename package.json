@@ -1,6 +1,12 @@
 {
-  "name": "libre-cafe-order",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module"
+"name": "my-website"
+,
+"version": "1.0.0"
+,
+"scripts": {
+"start": "serve -l 3110"
+},
+"dependencies": {
+"serve": "^14.2.4"
+}
 }
