@@ -1,14 +1,21 @@
 const PREFIX = 'libre-cafe';
 
 function getStorage() {
-  try {
-    const testKey = `${PREFIX}:storage-test`;
-    window.localStorage.setItem(testKey, testKey);
-    window.localStorage.removeItem(testKey);
-    return window.localStorage;
-  } catch (error) {
-    return null;
+  const storageNames = ['localStorage', 'sessionStorage'];
+
+  for (const storageName of storageNames) {
+    try {
+      const storage = window[storageName];
+      const testKey = `${PREFIX}:storage-test`;
+      storage.setItem(testKey, testKey);
+      storage.removeItem(testKey);
+      return storage;
+    } catch (error) {
+      // Try the next browser storage. Some deployments block localStorage.
+    }
   }
+
+  return null;
 }
 
 export function makeStorageKey(key) {

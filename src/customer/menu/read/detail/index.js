@@ -1,5 +1,6 @@
 import { renderHeader } from '../../../../shared/components/header.js';
 import { renderFooter } from '../../../../shared/components/footer.js';
+import { addCartItem, createCartMenuSnapshot } from '../../../../shared/services/cart-service.js';
 import { getCategories } from '../../../../shared/services/category-service.js';
 import { getMenus } from '../../../../shared/services/menu-service.js';
 import { formatCurrency } from '../../../../shared/utils/format.js';
@@ -44,6 +45,16 @@ function createOptionList(options) {
   return optionLabels.map((label) => `<span class="tag">${label}</span>`).join('');
 }
 
+function getDefaultCartOptions(menuItem) {
+  return {
+    temperature: menuItem.options.temperature?.[0],
+    size: menuItem.options.size?.[0],
+    extraShotCount: 0,
+    syrupCount: 0,
+    takeout: true,
+  };
+}
+
 if (!menu) {
   detail.innerHTML = `
     <div class="empty-state">
@@ -69,10 +80,22 @@ if (!menu) {
           <div class="menu-card__tags">${createOptionList(menu.options)}</div>
         </div>
         <div class="detail-actions">
-          <a class="button button--primary" href="/src/customer/cart/create/index.html?id=${menu.id}">장바구니 담기</a>
+          <button class="button button--primary" id="add-cart-button" type="button">장바구니 담기</button>
+          <a class="button button--ghost" href="/src/customer/cart/create/index.html?id=${menu.id}">옵션 선택</a>
           <a class="button button--ghost" href="/src/customer/menu/read/list/index.html?category=${menu.categoryId}">같은 카테고리 보기</a>
         </div>
       </div>
     </article>
   `;
+
+  document.getElementById('add-cart-button').addEventListener('click', () => {
+    addCartItem({
+      menuId: menu.id,
+      quantity: 1,
+      menuSnapshot: createCartMenuSnapshot(menu),
+      options: getDefaultCartOptions(menu),
+    });
+
+    window.location.href = '/src/customer/cart/read/index.html';
+  });
 }
