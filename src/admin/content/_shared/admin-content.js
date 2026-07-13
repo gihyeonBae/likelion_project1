@@ -28,7 +28,7 @@ export function createBannerForm({ banner = {}, submitLabel }) {
       </label>
       <label class="form-field">
         <span>버튼 링크</span>
-        <input type="text" name="linkUrl" value="${banner.linkUrl ?? './src/customer/menu/read/list/index.html'}" />
+        <input type="text" name="linkUrl" value="${banner.linkUrl ?? '/src/customer/menu/read/list/index.html'}" />
       </label>
       <label class="form-field">
         <span>노출 순서</span>
@@ -40,7 +40,7 @@ export function createBannerForm({ banner = {}, submitLabel }) {
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">${submitLabel}</button>
-        <a class="button button--ghost" href="../../read/banner-list/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/read/banner-list/index.html">목록</a>
       </div>
     </form>
   `;
@@ -68,8 +68,8 @@ export function createBannerRow(banner, { basePath }) {
         <p class="menu-card__meta">${banner.description}</p>
       </div>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="${basePath}/src/admin/content/update/banner/index.html?id=${banner.id}">수정</a>
-        <a class="button button--ghost" href="${basePath}/src/admin/content/delete/index.html?type=banner&id=${banner.id}">삭제</a>
+        <a class="button button--ghost" href="/src/admin/content/update/banner/index.html?id=${banner.id}">수정</a>
+        <a class="button button--ghost" href="/src/admin/content/delete/index.html?type=banner&id=${banner.id}">삭제</a>
       </div>
     </article>
   `;

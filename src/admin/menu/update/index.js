@@ -18,7 +18,7 @@ if (!menu) {
   container.innerHTML = `
     <div class="empty-state">
       <p>수정할 메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/menu/read/list/index.html">목록</a>
     </div>
   `;
 } else {
@@ -36,6 +36,6 @@ if (!menu) {
     }
 
     await updateMenu(menu.id, payload);
-    window.location.href = `../read/detail/index.html?id=${menu.id}`;
+    window.location.href = `/src/admin/menu/read/detail/index.html?id=${menu.id}`;
   });
 }

@@ -29,7 +29,7 @@ export function createCategoryForm({ category = {}, submitLabel }) {
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">${submitLabel}</button>
-        <a class="button button--ghost" href="../read/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/category/read/index.html">목록</a>
       </div>
     </form>
   `;
@@ -57,8 +57,8 @@ export function createAdminCategoryRow(category, menuCount, { basePath }) {
         <p class="menu-card__meta">${category.nameEn} · 메뉴 ${menuCount}개 · 순서 ${category.sortOrder}</p>
       </div>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="${basePath}/src/admin/category/update/index.html?id=${category.id}">수정</a>
-        <a class="button button--ghost" href="${basePath}/src/admin/category/delete/index.html?id=${category.id}">삭제</a>
+        <a class="button button--ghost" href="/src/admin/category/update/index.html?id=${category.id}">수정</a>
+        <a class="button button--ghost" href="/src/admin/category/delete/index.html?id=${category.id}">삭제</a>
       </div>
     </article>
   `;

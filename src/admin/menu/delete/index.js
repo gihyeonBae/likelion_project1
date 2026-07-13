@@ -18,18 +18,18 @@ container.innerHTML = menu
       <p class="hero__description">고객 화면에서도 이 메뉴가 더 이상 보이지 않습니다.</p>
       <div class="detail-actions">
         <button class="button button--primary" id="delete-menu" type="button">삭제</button>
-        <a class="button button--ghost" href="../read/detail/index.html?id=${menu.id}">취소</a>
+        <a class="button button--ghost" href="/src/admin/menu/read/detail/index.html?id=${menu.id}">취소</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>삭제할 메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/menu/read/list/index.html">목록</a>
     </div>
   `;
 
 document.getElementById('delete-menu')?.addEventListener('click', async () => {
   await deleteMenu(menu.id);
-  window.location.href = '../read/list/index.html';
+  window.location.href = '/src/admin/menu/read/list/index.html';
 });

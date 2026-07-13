@@ -15,7 +15,7 @@ if (!order) {
   container.innerHTML = `
     <div class="empty-state">
       <p>상태를 변경할 주문을 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../../read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/order/read/list/index.html">목록</a>
     </div>
   `;
 } else {
@@ -35,7 +35,7 @@ if (!order) {
       </label>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">상태 저장</button>
-        <a class="button button--ghost" href="../../read/detail/index.html?id=${order.id}">취소</a>
+        <a class="button button--ghost" href="/src/admin/order/read/detail/index.html?id=${order.id}">취소</a>
       </div>
     </form>
   `;
@@ -47,6 +47,6 @@ if (!order) {
       status: formData.get('status'),
       adminMemo: formData.get('adminMemo'),
     });
-    window.location.href = `../../read/detail/index.html?id=${order.id}`;
+    window.location.href = `/src/admin/order/read/detail/index.html?id=${order.id}`;
   });
 }

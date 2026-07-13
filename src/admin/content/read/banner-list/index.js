@@ -15,6 +15,6 @@ document.getElementById('banner-list').innerHTML = banners.length
   : `
     <div class="empty-state">
       <p>등록된 홈 배너가 없습니다.</p>
-      <a class="button button--primary" href="../../create/banner/index.html">배너 등록</a>
+      <a class="button button--primary" href="/src/admin/content/create/banner/index.html">배너 등록</a>
     </div>
   `;

@@ -22,11 +22,11 @@ if (activeBanner) {
   document.getElementById('home-banner-title').textContent = activeBanner.title;
   document.getElementById('home-banner-description').textContent = activeBanner.description;
   document.getElementById('home-banner-link').textContent = activeBanner.linkLabel || '메뉴 보기';
-  document.getElementById('home-banner-link').href = activeBanner.linkUrl || '../../../customer/menu/read/list/index.html';
+  document.getElementById('home-banner-link').href = activeBanner.linkUrl || '/src/customer/menu/read/list/index.html';
 }
 
 document.getElementById('category-list').innerHTML = categoryCounts.map((category) => `
-  <a class="category-card" href="${basePath}/src/customer/menu/read/list/index.html?category=${category.id}">
+  <a class="category-card" href="/src/customer/menu/read/list/index.html?category=${category.id}">
     <p>${category.nameEn}</p>
     <h3>${category.nameKo}</h3>
     <span>${category.description}</span>

@@ -81,7 +81,7 @@ export function createOrderListCard(order, { basePath }) {
         <p class="menu-card__meta">${formatOrderDate(order.createdAt)} · 픽업 ${order.pickupTime}</p>
       </div>
       <strong>${formatCurrency(order.totalPrice)}</strong>
-      <a class="button button--ghost" href="${basePath}/src/customer/order/read/detail/index.html?id=${order.id}">상세</a>
+      <a class="button button--ghost" href="/src/customer/order/read/detail/index.html?id=${order.id}">상세</a>
     </article>
   `;
 }

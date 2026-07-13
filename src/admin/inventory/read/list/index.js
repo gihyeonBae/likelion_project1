@@ -20,7 +20,7 @@ function renderInventory() {
     : `
       <div class="empty-state">
         <p>조건에 맞는 재고가 없습니다.</p>
-        <a class="button button--primary" href="../../create/index.html">재고 등록</a>
+        <a class="button button--primary" href="/src/admin/inventory/create/index.html">재고 등록</a>
       </div>
     `;
 }

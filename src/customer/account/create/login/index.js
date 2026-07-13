@@ -23,7 +23,7 @@ document.getElementById('login-form').addEventListener('submit', async (event) =
 
   try {
     await loginCustomer({ email, password });
-    window.location.href = '../../read/profile/index.html';
+    window.location.href = '/src/customer/account/read/profile/index.html';
   } catch (loginError) {
     error.textContent = loginError.message;
   }

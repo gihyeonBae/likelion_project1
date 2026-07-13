@@ -20,7 +20,7 @@ function renderOrders() {
     : `
       <div class="empty-state">
         <p>조건에 맞는 주문이 없습니다.</p>
-        <a class="button button--primary" href="../../create/index.html">현장 주문 등록</a>
+        <a class="button button--primary" href="/src/admin/order/create/index.html">현장 주문 등록</a>
       </div>
     `;
 }

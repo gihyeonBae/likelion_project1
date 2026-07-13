@@ -19,7 +19,7 @@ checkoutItems.innerHTML = cartItems.length
   : `
     <div class="empty-state">
       <p>주문할 메뉴가 없습니다.</p>
-      <a class="button button--primary" href="../../../menu/read/list/index.html">메뉴 담으러 가기</a>
+      <a class="button button--primary" href="/src/customer/menu/read/list/index.html">메뉴 담으러 가기</a>
     </div>
   `;
 

@@ -18,18 +18,18 @@ container.innerHTML = order
       <p class="hero__description">${order.id} 주문을 목록에서 완전히 삭제합니다.</p>
       <div class="detail-actions">
         <button class="button button--primary" id="delete-order" type="button">삭제</button>
-        <a class="button button--ghost" href="../read/detail/index.html?id=${order.id}">취소</a>
+        <a class="button button--ghost" href="/src/admin/order/read/detail/index.html?id=${order.id}">취소</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>삭제할 주문을 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/order/read/list/index.html">목록</a>
     </div>
   `;
 
 document.getElementById('delete-order')?.addEventListener('click', async () => {
   await deleteOrder(order.id);
-  window.location.href = '../read/list/index.html';
+  window.location.href = '/src/admin/order/read/list/index.html';
 });

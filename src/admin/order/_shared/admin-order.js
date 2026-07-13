@@ -25,8 +25,8 @@ export function createAdminOrderRow(order, { basePath }) {
       </div>
       <strong>${formatCurrency(order.totalPrice)}</strong>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="${basePath}/src/admin/order/read/detail/index.html?id=${order.id}">상세</a>
-        <a class="button button--ghost" href="${basePath}/src/admin/order/update/status/index.html?id=${order.id}">상태</a>
+        <a class="button button--ghost" href="/src/admin/order/read/detail/index.html?id=${order.id}">상세</a>
+        <a class="button button--ghost" href="/src/admin/order/update/status/index.html?id=${order.id}">상태</a>
       </div>
     </article>
   `;

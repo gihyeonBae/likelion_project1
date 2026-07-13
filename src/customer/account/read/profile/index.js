@@ -15,8 +15,8 @@ if (!customer) {
   container.innerHTML = `
     <div class="empty-state">
       <p>내 정보를 보려면 로그인이 필요합니다.</p>
-      <a class="button button--primary" href="../../create/login/index.html">로그인</a>
-      <a class="button button--ghost" href="../../create/signup/index.html">회원가입</a>
+      <a class="button button--primary" href="/src/customer/account/create/login/index.html">로그인</a>
+      <a class="button button--ghost" href="/src/customer/account/create/signup/index.html">회원가입</a>
     </div>
   `;
 } else {
@@ -32,9 +32,9 @@ if (!customer) {
         <div><dt>주문</dt><dd>${orderCount}건</dd></div>
       </dl>
       <div class="detail-actions">
-        <a class="button button--primary" href="../../update/profile/index.html">내 정보 수정</a>
-        <a class="button button--ghost" href="../../delete/logout/index.html">로그아웃</a>
-        <a class="button button--ghost" href="../../delete/withdraw/index.html">회원 탈퇴</a>
+        <a class="button button--primary" href="/src/customer/account/update/profile/index.html">내 정보 수정</a>
+        <a class="button button--ghost" href="/src/customer/account/delete/logout/index.html">로그아웃</a>
+        <a class="button button--ghost" href="/src/customer/account/delete/withdraw/index.html">회원 탈퇴</a>
       </div>
     </article>
   `;

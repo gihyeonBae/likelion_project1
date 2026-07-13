@@ -14,7 +14,7 @@ if (!item) {
   container.innerHTML = `
     <div class="empty-state">
       <p>입고 기록을 확인할 재고를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/inventory/read/list/index.html">목록</a>
     </div>
   `;
 } else {
@@ -55,7 +55,7 @@ if (!item) {
         `).join('') : '<p class="empty-state">아직 기록이 없습니다.</p>'}
       </div>
       <div class="detail-actions">
-        <a class="button button--ghost" href="../list/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/inventory/read/list/index.html">목록</a>
       </div>
     </section>
   `;

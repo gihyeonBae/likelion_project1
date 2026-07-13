@@ -22,18 +22,18 @@ container.innerHTML = category
       </p>
       <div class="detail-actions">
         <button class="button button--primary${menus.length ? ' is-disabled' : ''}" id="delete-category" type="button"${menus.length ? ' disabled' : ''}>삭제</button>
-        <a class="button button--ghost" href="../read/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/category/read/index.html">목록</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>삭제할 카테고리를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../read/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/category/read/index.html">목록</a>
     </div>
   `;
 
 document.getElementById('delete-category')?.addEventListener('click', async () => {
   await deleteCategory(category.id);
-  window.location.href = '../read/index.html';
+  window.location.href = '/src/admin/category/read/index.html';
 });

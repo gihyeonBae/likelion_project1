@@ -9,5 +9,5 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 
 document.getElementById('logout-button').addEventListener('click', () => {
   clearSession();
-  window.location.href = '../../create/login/index.html';
+  window.location.href = '/src/customer/account/create/login/index.html';
 });

@@ -16,7 +16,7 @@ if (!category) {
   container.innerHTML = `
     <div class="empty-state">
       <p>수정할 카테고리를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../read/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/category/read/index.html">목록</a>
     </div>
   `;
 } else {
@@ -34,6 +34,6 @@ if (!category) {
     }
 
     await updateCategory(category.id, payload);
-    window.location.href = '../read/index.html';
+    window.location.href = '/src/admin/category/read/index.html';
   });
 }

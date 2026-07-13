@@ -26,7 +26,7 @@ export function createBanner(bannerData) {
     title: bannerData.title,
     description: bannerData.description,
     linkLabel: bannerData.linkLabel || '메뉴 보기',
-    linkUrl: bannerData.linkUrl || './src/customer/menu/read/list/index.html',
+    linkUrl: bannerData.linkUrl || '/src/customer/menu/read/list/index.html',
     sortOrder: Number(bannerData.sortOrder) || getBanners().length + 1,
     isVisible: Boolean(bannerData.isVisible),
     createdAt: new Date().toISOString(),

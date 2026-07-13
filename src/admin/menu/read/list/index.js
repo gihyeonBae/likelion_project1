@@ -32,7 +32,7 @@ function renderMenus() {
     : `
       <div class="empty-state">
         <p>조건에 맞는 메뉴가 없습니다.</p>
-        <a class="button button--primary" href="../../create/index.html">메뉴 등록</a>
+        <a class="button button--primary" href="/src/admin/menu/create/index.html">메뉴 등록</a>
       </div>
     `;
 }

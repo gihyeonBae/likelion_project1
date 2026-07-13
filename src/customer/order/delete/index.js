@@ -19,18 +19,18 @@ container.innerHTML = order && order.status !== 'canceled'
       <p class="hero__description">${order.id} · ${formatCurrency(order.totalPrice)} 주문을 취소합니다.</p>
       <div class="detail-actions">
         <button class="button button--primary" id="cancel-order" type="button">주문 취소</button>
-        <a class="button button--ghost" href="../read/detail/index.html?id=${order.id}">돌아가기</a>
+        <a class="button button--ghost" href="/src/customer/order/read/detail/index.html?id=${order.id}">돌아가기</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>취소할 수 있는 주문이 없습니다.</p>
-      <a class="button button--primary" href="../read/list/index.html">주문 내역</a>
+      <a class="button button--primary" href="/src/customer/order/read/list/index.html">주문 내역</a>
     </div>
   `;
 
 document.getElementById('cancel-order')?.addEventListener('click', async () => {
   await cancelOrder(order.id);
-  window.location.href = `../read/detail/index.html?id=${order.id}`;
+  window.location.href = `/src/customer/order/read/detail/index.html?id=${order.id}`;
 });

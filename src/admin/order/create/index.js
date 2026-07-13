@@ -55,14 +55,14 @@ container.innerHTML = menus.length
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">현장 주문 등록</button>
-        <a class="button button--ghost" href="../read/list/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/order/read/list/index.html">목록</a>
       </div>
     </form>
   `
   : `
     <div class="empty-state">
       <p>판매중인 메뉴가 없습니다.</p>
-      <a class="button button--primary" href="../../menu/create/index.html">메뉴 등록</a>
+      <a class="button button--primary" href="/src/admin/menu/create/index.html">메뉴 등록</a>
     </div>
   `;
 
@@ -112,5 +112,5 @@ document.getElementById('pos-order-form')?.addEventListener('submit', async (eve
     method: formData.get('paymentMethod'),
   });
 
-  window.location.href = `../read/detail/index.html?id=${order.id}`;
+  window.location.href = `/src/admin/order/read/detail/index.html?id=${order.id}`;
 });

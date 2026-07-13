@@ -9,5 +9,5 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 
 document.getElementById('withdraw-button').addEventListener('click', async () => {
   await withdrawCurrentCustomer();
-  window.location.href = '../../create/signup/index.html';
+  window.location.href = '/src/customer/account/create/signup/index.html';
 });

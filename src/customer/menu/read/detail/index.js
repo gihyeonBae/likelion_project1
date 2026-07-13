@@ -48,7 +48,7 @@ if (!menu) {
   detail.innerHTML = `
     <div class="empty-state">
       <p>메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../list/index.html">메뉴 목록</a>
+      <a class="button button--primary" href="/src/customer/menu/read/list/index.html">메뉴 목록</a>
     </div>
   `;
 } else {
@@ -69,8 +69,8 @@ if (!menu) {
           <div class="menu-card__tags">${createOptionList(menu.options)}</div>
         </div>
         <div class="detail-actions">
-          <a class="button button--primary" href="${basePath}/src/customer/cart/create/index.html?id=${menu.id}">장바구니 담기</a>
-          <a class="button button--ghost" href="${basePath}/src/customer/menu/read/list/index.html?category=${menu.categoryId}">같은 카테고리 보기</a>
+          <a class="button button--primary" href="/src/customer/cart/create/index.html?id=${menu.id}">장바구니 담기</a>
+          <a class="button button--ghost" href="/src/customer/menu/read/list/index.html?category=${menu.categoryId}">같은 카테고리 보기</a>
         </div>
       </div>
     </article>

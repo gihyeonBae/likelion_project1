@@ -74,14 +74,14 @@ if (!menu) {
   container.innerHTML = `
     <div class="empty-state">
       <p>메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="../read/index.html">장바구니로 이동</a>
+      <a class="button button--primary" href="/src/customer/cart/read/index.html">장바구니로 이동</a>
     </div>
   `;
 } else if (menu.status === 'sold-out') {
   container.innerHTML = `
     <div class="empty-state">
       <p>${menu.nameKo}는 현재 품절입니다.</p>
-      <a class="button button--primary" href="../../menu/read/list/index.html">다른 메뉴 보기</a>
+      <a class="button button--primary" href="/src/customer/menu/read/list/index.html">다른 메뉴 보기</a>
     </div>
   `;
 } else {
@@ -102,7 +102,7 @@ if (!menu) {
         ${createOptionFields(menu)}
         <div class="detail-actions">
           <button class="button button--primary" type="submit">장바구니에 담기</button>
-          <a class="button button--ghost" href="../../menu/read/detail/index.html?id=${menu.id}">상세로 돌아가기</a>
+          <a class="button button--ghost" href="/src/customer/menu/read/detail/index.html?id=${menu.id}">상세로 돌아가기</a>
         </div>
       </form>
     </article>
@@ -123,6 +123,6 @@ if (!menu) {
         takeout: formData.get('takeout') === 'true',
       },
     });
-    window.location.href = '../read/index.html';
+    window.location.href = '/src/customer/cart/read/index.html';
   });
 }

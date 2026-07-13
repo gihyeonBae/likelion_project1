@@ -17,7 +17,7 @@ if (!categories.length) {
   container.innerHTML = `
     <div class="empty-state">
       <p>메뉴를 등록하려면 카테고리가 필요합니다.</p>
-      <a class="button button--primary" href="../../category/create/index.html">카테고리 등록</a>
+      <a class="button button--primary" href="/src/admin/category/create/index.html">카테고리 등록</a>
     </div>
   `;
 } else {
@@ -35,6 +35,6 @@ if (!categories.length) {
     }
 
     const menu = await createMenu(payload);
-    window.location.href = `../read/detail/index.html?id=${menu.id}`;
+    window.location.href = `/src/admin/menu/read/detail/index.html?id=${menu.id}`;
   });
 }

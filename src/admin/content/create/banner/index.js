@@ -21,5 +21,5 @@ document.getElementById('banner-form').addEventListener('submit', (event) => {
   }
 
   createBanner(payload);
-  window.location.href = '../../read/banner-list/index.html';
+  window.location.href = '/src/admin/content/read/banner-list/index.html';
 });
