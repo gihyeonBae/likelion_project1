@@ -43,6 +43,21 @@ create table if not exists public.orders (
   canceled_at timestamptz
 );
 
+alter table public.orders add column if not exists payment_method text;
+alter table public.orders add column if not exists payment_receipt_id text;
+alter table public.orders add column if not exists paid_at timestamptz;
+
+create table if not exists public.payments (
+  id text primary key,
+  order_id text not null references public.orders(id) on delete cascade,
+  amount integer not null default 0,
+  method text not null,
+  status text not null default 'paid',
+  receipt_id text not null unique,
+  paid_at timestamptz not null default now(),
+  created_at timestamptz not null default now()
+);
+
 create table if not exists public.customers (
   id text primary key,
   name text not null,
@@ -59,6 +74,7 @@ create table if not exists public.customers (
 alter table public.categories enable row level security;
 alter table public.menus enable row level security;
 alter table public.orders enable row level security;
+alter table public.payments enable row level security;
 alter table public.customers enable row level security;
 
 drop policy if exists "Public read categories" on public.categories;
@@ -74,6 +90,11 @@ create policy "Public read menus"
 drop policy if exists "Public read orders" on public.orders;
 create policy "Public read orders"
   on public.orders for select
+  using (true);
+
+drop policy if exists "Public read payments" on public.payments;
+create policy "Public read payments"
+  on public.payments for select
   using (true);
 
 drop policy if exists "Public read customers" on public.customers;
@@ -96,6 +117,12 @@ create policy "Public write menus"
 drop policy if exists "Public write orders" on public.orders;
 create policy "Public write orders"
   on public.orders for all
+  using (true)
+  with check (true);
+
+drop policy if exists "Public write payments" on public.payments;
+create policy "Public write payments"
+  on public.payments for all
   using (true)
   with check (true);
 

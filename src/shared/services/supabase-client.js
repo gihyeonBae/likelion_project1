@@ -47,3 +47,20 @@ export async function runSupabaseQuery(queryFactory, fallbackValue, label) {
     return fallbackValue;
   }
 }
+
+export async function runRequiredSupabaseQuery(queryFactory, label) {
+  const client = await getSupabaseClient();
+
+  if (!client) {
+    throw new Error('Supabase 설정이 필요합니다.');
+  }
+
+  const { data, error } = await queryFactory(client);
+
+  if (error) {
+    console.error(`[Supabase] ${label} failed.`, error);
+    throw new Error(error.message || 'Supabase 요청에 실패했습니다.');
+  }
+
+  return data;
+}

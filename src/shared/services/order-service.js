@@ -21,11 +21,14 @@ function mapOrderRow(row) {
     totalPrice: row.total_price,
     status: row.status,
     paymentStatus: row.payment_status,
+    paymentMethod: row.payment_method,
+    paymentReceiptId: row.payment_receipt_id,
     channel: row.channel,
     adminMemo: row.admin_memo,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     canceledAt: row.canceled_at,
+    paidAt: row.paid_at,
   };
 }
 
@@ -40,11 +43,14 @@ function mapOrderToRow(order) {
     total_price: Number(order.totalPrice) || 0,
     status: order.status || 'received',
     payment_status: order.paymentStatus || 'before-payment',
+    payment_method: order.paymentMethod,
+    payment_receipt_id: order.paymentReceiptId,
     channel: order.channel || 'online',
     admin_memo: order.adminMemo || '',
     created_at: order.createdAt,
     updated_at: order.updatedAt,
     canceled_at: order.canceledAt,
+    paid_at: order.paidAt,
   };
 }
 

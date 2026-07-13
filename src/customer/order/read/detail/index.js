@@ -1,6 +1,7 @@
 import { renderHeader } from '../../../../shared/components/header.js';
 import { renderFooter } from '../../../../shared/components/footer.js';
 import { getOrderById } from '../../../../shared/services/order-service.js';
+import { getPaymentMethodLabel } from '../../../../shared/services/payment-service.js';
 import { formatCurrency } from '../../../../shared/utils/format.js';
 import { createOrderItemRows, formatOrderDate, getOrderStatusLabel } from '../../_shared/order-renderer.js';
 
@@ -23,10 +24,15 @@ container.innerHTML = order
           <div><dt>픽업 이름</dt><dd>${order.pickupName}</dd></div>
           <div><dt>연락처</dt><dd>${order.pickupPhone}</dd></div>
           <div><dt>요청사항</dt><dd>${order.requestMessage || '없음'}</dd></div>
-          <div><dt>결제 상태</dt><dd>${order.paymentStatus === 'before-payment' ? '결제 전' : order.paymentStatus}</dd></div>
+          <div><dt>결제 상태</dt><dd>${order.paymentStatus === 'paid' ? '결제 완료' : '결제 전'}</dd></div>
+          <div><dt>결제 수단</dt><dd>${order.paymentMethod ? getPaymentMethodLabel(order.paymentMethod) : '미결제'}</dd></div>
+          <div><dt>영수증</dt><dd>${order.paymentReceiptId || '없음'}</dd></div>
         </dl>
         <strong class="detail-price">${formatCurrency(order.totalPrice)}</strong>
-        <div class="detail-actions">
+        <div class="detail-actions customer-order-actions">
+          ${order.paymentStatus !== 'paid' && order.status !== 'canceled'
+            ? `<a class="button button--primary" href="../../../payment/create/index.html?id=${order.id}">결제하기</a>`
+            : ''}
           <a class="button button--primary${order.status === 'canceled' ? ' is-disabled' : ''}" href="${order.status === 'canceled' ? '#' : `../../update/index.html?id=${order.id}`}">주문 수정</a>
           <a class="button button--ghost${order.status === 'canceled' ? ' is-disabled' : ''}" href="${order.status === 'canceled' ? '#' : `../../delete/index.html?id=${order.id}`}">주문 취소</a>
           <a class="button button--ghost" href="../list/index.html">목록</a>

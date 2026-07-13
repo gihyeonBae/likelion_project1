@@ -2,6 +2,7 @@ import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
 import { getMenus } from '../../../shared/services/menu-service.js';
 import { createOrder } from '../../../shared/services/order-service.js';
+import { createPayment, PAYMENT_METHODS } from '../../../shared/services/payment-service.js';
 import { formatCurrency } from '../../../shared/utils/format.js';
 import { isPhoneNumber, isRequired } from '../../../shared/utils/validation.js';
 import { calculateOrderItemsTotal } from '../../../customer/order/_shared/order-renderer.js';
@@ -44,6 +45,12 @@ container.innerHTML = menus.length
       <label class="form-field">
         <span>관리자 메모</span>
         <input type="text" name="adminMemo" placeholder="현장 결제 완료" />
+      </label>
+      <label class="form-field">
+        <span>결제 수단</span>
+        <select name="paymentMethod">
+          ${PAYMENT_METHODS.map((method) => `<option value="${method.value}">${method.label}</option>`).join('')}
+        </select>
       </label>
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
@@ -99,6 +106,10 @@ document.getElementById('pos-order-form')?.addEventListener('submit', async (eve
     adminMemo: formData.get('adminMemo'),
     totalPrice: calculateOrderItemsTotal(items),
     channel: 'pos',
+  });
+  await createPayment({
+    order,
+    method: formData.get('paymentMethod'),
   });
 
   window.location.href = `../read/detail/index.html?id=${order.id}`;

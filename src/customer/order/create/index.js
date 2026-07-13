@@ -90,6 +90,6 @@ if (!cartItems.length) {
       totalPrice,
     });
     clearCartItems();
-    window.location.href = `../read/complete/index.html?id=${order.id}`;
+    window.location.href = `../../payment/create/index.html?id=${order.id}`;
   });
 }
