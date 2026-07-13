@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = getOrderById(new URLSearchParams(window.location.search).get('id'));
+const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('order-status-update');
 
 if (!order) {
@@ -40,10 +40,10 @@ if (!order) {
     </form>
   `;
 
-  document.getElementById('status-form').addEventListener('submit', (event) => {
+  document.getElementById('status-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    updateOrder(order.id, {
+    await updateOrder(order.id, {
       status: formData.get('status'),
       adminMemo: formData.get('adminMemo'),
     });

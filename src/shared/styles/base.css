@@ -17,6 +17,8 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   color: var(--color-ink);
   background:
@@ -25,6 +27,10 @@ body {
   font-family: Inter, Arial, "Noto Sans KR", sans-serif;
   line-height: 1.6;
   text-rendering: optimizeLegibility;
+}
+
+main {
+  flex: 1;
 }
 
 h1,

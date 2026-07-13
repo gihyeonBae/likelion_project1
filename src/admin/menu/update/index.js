@@ -10,8 +10,8 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menu = getMenuById(new URLSearchParams(window.location.search).get('id'));
-const categories = getCategories();
+const menu = await getMenuById(new URLSearchParams(window.location.search).get('id'));
+const categories = await getCategories();
 const container = document.getElementById('menu-update');
 
 if (!menu) {
@@ -24,7 +24,7 @@ if (!menu) {
 } else {
   container.innerHTML = createMenuForm({ menu, categories, submitLabel: '수정 저장' });
 
-  document.getElementById('menu-form').addEventListener('submit', (event) => {
+  document.getElementById('menu-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const payload = getMenuPayloadFromForm(event.currentTarget);
@@ -35,7 +35,7 @@ if (!menu) {
       return;
     }
 
-    updateMenu(menu.id, payload);
+    await updateMenu(menu.id, payload);
     window.location.href = `../read/detail/index.html?id=${menu.id}`;
   });
 }

@@ -9,7 +9,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const category = getCategoryById(new URLSearchParams(window.location.search).get('id'));
+const category = await getCategoryById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('category-update');
 
 if (!category) {
@@ -22,7 +22,7 @@ if (!category) {
 } else {
   container.innerHTML = createCategoryForm({ category, submitLabel: '수정 저장' });
 
-  document.getElementById('category-form').addEventListener('submit', (event) => {
+  document.getElementById('category-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const payload = getCategoryPayloadFromForm(event.currentTarget);
@@ -33,7 +33,7 @@ if (!category) {
       return;
     }
 
-    updateCategory(category.id, payload);
+    await updateCategory(category.id, payload);
     window.location.href = '../read/index.html';
   });
 }

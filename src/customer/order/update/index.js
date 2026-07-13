@@ -8,7 +8,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('order', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = getOrderById(new URLSearchParams(window.location.search).get('id'));
+const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('order-update');
 
 if (!order || order.status === 'canceled') {
@@ -47,7 +47,7 @@ if (!order || order.status === 'canceled') {
     </form>
   `;
 
-  document.getElementById('order-update-form').addEventListener('submit', (event) => {
+  document.getElementById('order-update-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -67,7 +67,7 @@ if (!order || order.status === 'canceled') {
       return;
     }
 
-    updateOrder(order.id, {
+    await updateOrder(order.id, {
       pickupName,
       pickupPhone,
       pickupTime,

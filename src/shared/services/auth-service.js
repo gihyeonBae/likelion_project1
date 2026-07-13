@@ -1,5 +1,6 @@
 import { CUSTOMERS } from '../../../data/customers.js';
 import { readStorage, removeStorage, writeStorage } from './storage.js';
+import { runSupabaseQuery } from './supabase-client.js';
 
 const SESSION_STORAGE_KEY = 'session';
 const CUSTOMERS_STORAGE_KEY = 'customers';
@@ -17,20 +18,91 @@ function sanitizeCustomer(customer) {
   return safeCustomer;
 }
 
-export function getCustomers() {
+function mapCustomerRow(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    email: row.email,
+    password: row.password,
+    phone: row.phone,
+    status: row.status,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+    statusUpdatedAt: row.status_updated_at,
+    withdrawnAt: row.withdrawn_at,
+  };
+}
+
+function mapCustomerToRow(customer) {
+  return {
+    id: customer.id,
+    name: customer.name,
+    email: customer.email,
+    password: customer.password,
+    phone: customer.phone,
+    status: customer.status || 'active',
+    created_at: customer.createdAt,
+    updated_at: customer.updatedAt,
+    status_updated_at: customer.statusUpdatedAt,
+    withdrawn_at: customer.withdrawnAt,
+  };
+}
+
+function getLocalCustomers() {
   return readStorage(CUSTOMERS_STORAGE_KEY, CUSTOMERS);
 }
 
-export function saveCustomers(customers) {
+function saveLocalCustomers(customers) {
   return writeStorage(CUSTOMERS_STORAGE_KEY, customers);
 }
 
-export function getCustomerById(customerId) {
-  return getCustomers().find((customer) => customer.id === customerId) || null;
+export async function getCustomers() {
+  const localCustomers = getLocalCustomers();
+  const rows = await runSupabaseQuery(
+    (client) => client.from('customers').select('*').order('created_at', { ascending: false }),
+    undefined,
+    'getCustomers',
+  );
+
+  return rows !== undefined ? rows.map(mapCustomerRow) : localCustomers;
 }
 
-export function getCustomerByEmail(email) {
-  return getCustomers().find((customer) => customer.email === email) || null;
+export async function saveCustomers(customers) {
+  const rows = await runSupabaseQuery(
+    (client) => client.from('customers').upsert(customers.map(mapCustomerToRow)).select(),
+    undefined,
+    'saveCustomers',
+  );
+
+  return rows !== undefined ? rows.map(mapCustomerRow) : saveLocalCustomers(customers);
+}
+
+export async function getCustomerById(customerId) {
+  const row = await runSupabaseQuery(
+    (client) => client.from('customers').select('*').eq('id', customerId).maybeSingle(),
+    undefined,
+    'getCustomerById',
+  );
+
+  if (row !== undefined) {
+    return row ? mapCustomerRow(row) : null;
+  }
+
+  return getLocalCustomers().find((customer) => customer.id === customerId) || null;
+}
+
+export async function getCustomerByEmail(email) {
+  const row = await runSupabaseQuery(
+    (client) => client.from('customers').select('*').eq('email', email).maybeSingle(),
+    undefined,
+    'getCustomerByEmail',
+  );
+
+  if (row !== undefined) {
+    return row ? mapCustomerRow(row) : null;
+  }
+
+  return getLocalCustomers().find((customer) => customer.email === email) || null;
 }
 
 export function getSession() {
@@ -45,13 +117,13 @@ export function clearSession() {
   removeStorage(SESSION_STORAGE_KEY);
 }
 
-export function getCurrentCustomer() {
+export async function getCurrentCustomer() {
   const session = getSession();
-  return session ? sanitizeCustomer(getCustomerById(session.customerId)) : null;
+  return session ? sanitizeCustomer(await getCustomerById(session.customerId)) : null;
 }
 
-export function signupCustomer({ name, email, password, phone }) {
-  if (getCustomerByEmail(email)) {
+export async function signupCustomer({ name, email, password, phone }) {
+  if (await getCustomerByEmail(email)) {
     throw new Error('이미 가입된 이메일입니다.');
   }
 
@@ -65,13 +137,22 @@ export function signupCustomer({ name, email, password, phone }) {
     createdAt: new Date().toISOString(),
   };
 
-  saveCustomers([...getCustomers(), customer]);
+  const row = await runSupabaseQuery(
+    (client) => client.from('customers').insert(mapCustomerToRow(customer)).select().single(),
+    undefined,
+    'signupCustomer',
+  );
+
+  if (row === undefined) {
+    saveLocalCustomers([...getLocalCustomers(), customer]);
+  }
+
   saveSession({ customerId: customer.id, signedInAt: new Date().toISOString() });
-  return sanitizeCustomer(customer);
+  return sanitizeCustomer(row ? mapCustomerRow(row) : customer);
 }
 
-export function loginCustomer({ email, password }) {
-  const customer = getCustomerByEmail(email);
+export async function loginCustomer({ email, password }) {
+  const customer = await getCustomerByEmail(email);
 
   if (!customer || customer.password !== password || customer.status !== 'active') {
     throw new Error('이메일 또는 비밀번호를 확인해 주세요.');
@@ -81,65 +162,121 @@ export function loginCustomer({ email, password }) {
   return sanitizeCustomer(customer);
 }
 
-export function updateCurrentCustomer(updates) {
+export async function updateCurrentCustomer(updates) {
   const session = getSession();
 
   if (!session) {
     throw new Error('로그인이 필요합니다.');
   }
 
-  const customers = getCustomers().map((customer) => {
+  const currentCustomer = await getCustomerById(session.customerId);
+
+  if (!currentCustomer) {
+    throw new Error('회원 정보를 찾을 수 없습니다.');
+  }
+
+  const updatedCustomer = {
+    ...currentCustomer,
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
+
+  const row = await runSupabaseQuery(
+    (client) => client.from('customers').update(mapCustomerToRow(updatedCustomer)).eq('id', session.customerId).select().single(),
+    undefined,
+    'updateCurrentCustomer',
+  );
+
+  if (row !== undefined) {
+    return sanitizeCustomer(mapCustomerRow(row));
+  }
+
+  const customers = getLocalCustomers().map((customer) => {
     if (customer.id !== session.customerId) {
       return customer;
     }
 
-    return {
-      ...customer,
-      ...updates,
-      updatedAt: new Date().toISOString(),
-    };
+    return updatedCustomer;
   });
 
-  saveCustomers(customers);
-  return getCurrentCustomer();
+  saveLocalCustomers(customers);
+  return sanitizeCustomer(updatedCustomer);
 }
 
-export function withdrawCurrentCustomer() {
+export async function withdrawCurrentCustomer() {
   const session = getSession();
 
   if (!session) {
     return;
   }
 
-  const customers = getCustomers().map((customer) => {
+  const currentCustomer = await getCustomerById(session.customerId);
+
+  if (!currentCustomer) {
+    clearSession();
+    return;
+  }
+
+  const withdrawnCustomer = {
+    ...currentCustomer,
+    status: 'withdrawn',
+    withdrawnAt: new Date().toISOString(),
+  };
+
+  const row = await runSupabaseQuery(
+    (client) => client.from('customers').update(mapCustomerToRow(withdrawnCustomer)).eq('id', session.customerId).select().single(),
+    undefined,
+    'withdrawCurrentCustomer',
+  );
+
+  if (row !== undefined) {
+    clearSession();
+    return;
+  }
+
+  const customers = getLocalCustomers().map((customer) => {
     if (customer.id !== session.customerId) {
       return customer;
     }
 
-    return {
-      ...customer,
-      status: 'withdrawn',
-      withdrawnAt: new Date().toISOString(),
-    };
+    return withdrawnCustomer;
   });
 
-  saveCustomers(customers);
+  saveLocalCustomers(customers);
   clearSession();
 }
 
-export function updateCustomerStatus(customerId, status) {
-  const customers = getCustomers().map((customer) => {
+export async function updateCustomerStatus(customerId, status) {
+  const currentCustomer = await getCustomerById(customerId);
+
+  if (!currentCustomer) {
+    return null;
+  }
+
+  const updatedCustomer = {
+    ...currentCustomer,
+    status,
+    statusUpdatedAt: new Date().toISOString(),
+  };
+
+  const row = await runSupabaseQuery(
+    (client) => client.from('customers').update(mapCustomerToRow(updatedCustomer)).eq('id', customerId).select().single(),
+    undefined,
+    'updateCustomerStatus',
+  );
+
+  if (row !== undefined) {
+    return mapCustomerRow(row);
+  }
+
+  const customers = getLocalCustomers().map((customer) => {
     if (customer.id !== customerId) {
       return customer;
     }
 
-    return {
-      ...customer,
-      status,
-      statusUpdatedAt: new Date().toISOString(),
-    };
+    return updatedCustomer;
   });
 
-  saveCustomers(customers);
-  return getCustomerById(customerId);
+  saveLocalCustomers(customers);
+  return updatedCustomer;
 }

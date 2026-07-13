@@ -7,7 +7,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('account', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-document.getElementById('withdraw-button').addEventListener('click', () => {
-  withdrawCurrentCustomer();
+document.getElementById('withdraw-button').addEventListener('click', async () => {
+  await withdrawCurrentCustomer();
   window.location.href = '../../create/signup/index.html';
 });

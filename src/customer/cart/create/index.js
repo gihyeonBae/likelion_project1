@@ -11,7 +11,7 @@ document.getElementById('app-header').innerHTML = renderHeader('cart', basePath)
 document.getElementById('app-footer').innerHTML = renderFooter();
 
 const params = new URLSearchParams(window.location.search);
-const menu = getMenuById(params.get('id'));
+const menu = await getMenuById(params.get('id'));
 const container = document.getElementById('cart-create');
 
 function createOptionFields(menuItem) {

@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('account', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const customer = getCurrentCustomer();
+const customer = await getCurrentCustomer();
 const container = document.getElementById('profile-update');
 
 if (!customer) {
@@ -47,7 +47,7 @@ if (!customer) {
     </form>
   `;
 
-  document.getElementById('profile-form').addEventListener('submit', (event) => {
+  document.getElementById('profile-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -67,7 +67,7 @@ if (!customer) {
       return;
     }
 
-    updateCurrentCustomer({
+    await updateCurrentCustomer({
       name,
       email,
       phone,

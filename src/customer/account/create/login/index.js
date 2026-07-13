@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('account', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-document.getElementById('login-form').addEventListener('submit', (event) => {
+document.getElementById('login-form').addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(event.currentTarget);
@@ -22,7 +22,7 @@ document.getElementById('login-form').addEventListener('submit', (event) => {
   }
 
   try {
-    loginCustomer({ email, password });
+    await loginCustomer({ email, password });
     window.location.href = '../../read/profile/index.html';
   } catch (loginError) {
     error.textContent = loginError.message;

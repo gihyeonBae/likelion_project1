@@ -11,7 +11,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menus = getMenus().filter((menu) => menu.status === 'on-sale');
+const menus = (await getMenus()).filter((menu) => menu.status === 'on-sale');
 const container = document.getElementById('pos-order-create');
 
 container.innerHTML = menus.length
@@ -59,7 +59,7 @@ container.innerHTML = menus.length
     </div>
   `;
 
-document.getElementById('pos-order-form')?.addEventListener('submit', (event) => {
+document.getElementById('pos-order-form')?.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData(event.currentTarget);
   const menu = menus.find((item) => item.id === formData.get('menuId'));
@@ -90,7 +90,7 @@ document.getElementById('pos-order-form')?.addEventListener('submit', (event) =>
     options: { takeout: false },
     lineTotal: menu.price * quantity,
   }];
-  const order = createOrder({
+  const order = await createOrder({
     items,
     pickupName,
     pickupPhone,

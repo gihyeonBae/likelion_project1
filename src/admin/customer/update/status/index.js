@@ -7,7 +7,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const customer = getCustomerById(new URLSearchParams(window.location.search).get('id'));
+const customer = await getCustomerById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('customer-status');
 
 if (!customer) {
@@ -37,9 +37,9 @@ if (!customer) {
     </form>
   `;
 
-  document.getElementById('status-form').addEventListener('submit', (event) => {
+  document.getElementById('status-form').addEventListener('submit', async (event) => {
     event.preventDefault();
-    updateCustomerStatus(customer.id, new FormData(event.currentTarget).get('status'));
+    await updateCustomerStatus(customer.id, new FormData(event.currentTarget).get('status'));
     window.location.href = `../../read/detail/index.html?id=${customer.id}`;
   });
 }

@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('order', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const orders = getOrders();
+const orders = await getOrders();
 
 document.getElementById('order-list').innerHTML = orders.length
   ? orders.map((order) => createOrderListCard(order, { basePath })).join('')

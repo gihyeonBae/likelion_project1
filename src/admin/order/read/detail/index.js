@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = getOrderById(new URLSearchParams(window.location.search).get('id'));
+const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('admin-order-detail');
 const statusLink = document.getElementById('status-link');
 const deleteLink = document.getElementById('delete-link');

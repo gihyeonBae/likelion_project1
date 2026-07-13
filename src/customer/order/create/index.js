@@ -13,7 +13,7 @@ document.getElementById('app-header').innerHTML = renderHeader('order', basePath
 document.getElementById('app-footer').innerHTML = renderFooter();
 
 const cartItems = getCartItems();
-const menus = getMenus();
+const menus = await getMenus();
 const orderItems = createOrderItemsFromCart(cartItems, menus);
 const totalPrice = calculateOrderItemsTotal(orderItems);
 const container = document.getElementById('order-create');
@@ -61,7 +61,7 @@ if (!cartItems.length) {
     </article>
   `;
 
-  document.getElementById('order-form').addEventListener('submit', (event) => {
+  document.getElementById('order-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
@@ -81,7 +81,7 @@ if (!cartItems.length) {
       return;
     }
 
-    const order = createOrder({
+    const order = await createOrder({
       items: orderItems,
       pickupName,
       pickupPhone,

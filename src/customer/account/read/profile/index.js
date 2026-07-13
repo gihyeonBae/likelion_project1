@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('account', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const customer = getCurrentCustomer();
+const customer = await getCurrentCustomer();
 const container = document.getElementById('profile-view');
 
 if (!customer) {
@@ -20,7 +20,7 @@ if (!customer) {
     </div>
   `;
 } else {
-  const orderCount = getOrders().length;
+  const orderCount = (await getOrders()).length;
 
   container.innerHTML = `
     <article class="confirm-panel">

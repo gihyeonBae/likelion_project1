@@ -57,11 +57,11 @@ export function createCartItemCard(cartItem, menu, { basePath }) {
       </div>
       <div class="cart-item__body">
         <p class="eyebrow">${menu.categoryId}</p>
-        <h3>${menu.nameKo}</h3>
-        <p class="menu-card__meta">${formatCartOptions(cartItem.options)}</p>
-        <p>${formatCurrency(menu.price)} × ${cartItem.quantity}</p>
+        <h3 class="cart-item__title">${menu.nameKo}</h3>
+        <p class="cart-item__options">${formatCartOptions(cartItem.options)}</p>
+        <p class="cart-item__unit">${formatCurrency(menu.price)} × ${cartItem.quantity}</p>
       </div>
-      <strong>${formatCurrency(calculateCartLineTotal(cartItem, menu))}</strong>
+      <strong class="cart-item__total">${formatCurrency(calculateCartLineTotal(cartItem, menu))}</strong>
       <div class="cart-item__actions">
         <a class="button button--ghost" href="${basePath}/src/customer/cart/update/index.html?id=${cartItem.id}">수정</a>
         <a class="button button--ghost" href="${basePath}/src/customer/cart/delete/index.html?id=${cartItem.id}">삭제</a>

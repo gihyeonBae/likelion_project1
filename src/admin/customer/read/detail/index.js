@@ -9,7 +9,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const customer = getCustomerById(new URLSearchParams(window.location.search).get('id'));
+const customer = await getCustomerById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('customer-detail');
 
 if (!customer) {
@@ -20,7 +20,7 @@ if (!customer) {
     </div>
   `;
 } else {
-  const orderCount = getOrders().length;
+  const orderCount = (await getOrders()).length;
 
   container.innerHTML = `
     <article class="confirm-panel">

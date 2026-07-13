@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('order', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = getOrderById(new URLSearchParams(window.location.search).get('id'));
+const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('order-complete');
 
 container.innerHTML = order

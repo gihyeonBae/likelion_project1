@@ -11,7 +11,7 @@ document.getElementById('app-header').innerHTML = renderHeader('order', basePath
 document.getElementById('app-footer').innerHTML = renderFooter();
 
 const cartItems = getCartItems();
-const menus = getMenus();
+const menus = await getMenus();
 const checkoutItems = document.getElementById('checkout-items');
 
 checkoutItems.innerHTML = cartItems.length

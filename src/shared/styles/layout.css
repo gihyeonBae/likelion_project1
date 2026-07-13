@@ -76,8 +76,11 @@
   min-height: 580px;
   border-bottom: 1px solid rgba(227, 215, 200, 0.86);
   background:
-    linear-gradient(120deg, rgba(255, 253, 248, 0.96) 0%, rgba(251, 246, 237, 0.86) 54%, rgba(241, 232, 220, 0.62) 100%),
-    repeating-linear-gradient(90deg, rgba(68, 49, 38, 0.045) 0 1px, transparent 1px 76px);
+    linear-gradient(90deg, rgba(251, 246, 237, 0.96) 0%, rgba(251, 246, 237, 0.82) 36%, rgba(251, 246, 237, 0.18) 68%, rgba(251, 246, 237, 0.08) 100%),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.26), rgba(241, 232, 220, 0.28)),
+    url("../../../assets/images/banners/main-hero-cafe.png");
+  background-position: center right;
+  background-size: cover;
 }
 
 .hero__content {
@@ -115,6 +118,12 @@
   min-height: 520px;
   display: grid;
   align-items: center;
+  background:
+    linear-gradient(90deg, rgba(251, 246, 237, 0.96) 0%, rgba(251, 246, 237, 0.82) 38%, rgba(251, 246, 237, 0.2) 70%, rgba(251, 246, 237, 0.08) 100%),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.24), rgba(241, 232, 220, 0.28)),
+    url("../../../assets/images/banners/main-hero-cafe.png");
+  background-position: center right;
+  background-size: cover;
 }
 
 .page-hero__content {
@@ -144,10 +153,15 @@
   gap: 20px;
 }
 
-.category-grid,
-.menu-grid {
+.category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
 }
 
@@ -470,14 +484,14 @@
 
 .cart-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 320px;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
   align-items: start;
 }
 
 .cart-list {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .cart-item,
@@ -492,10 +506,10 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 112px minmax(0, 1fr) auto auto;
-  gap: 20px;
+  grid-template-columns: 124px minmax(0, 1fr) minmax(112px, auto) auto;
+  gap: 22px;
   align-items: center;
-  padding: 14px 16px;
+  padding: 16px;
   transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
 }
 
@@ -508,9 +522,9 @@
 .cart-item__visual {
   display: grid;
   overflow: hidden;
-  width: 112px;
-  height: 96px;
-  min-height: 96px;
+  width: 124px;
+  height: 104px;
+  min-height: 104px;
   place-items: center;
   border-radius: 8px;
   color: #fff;
@@ -521,12 +535,39 @@
 }
 
 .cart-item__photo {
-  min-height: 96px;
+  min-height: 104px;
 }
 
 .cart-item__body {
   display: grid;
-  gap: 5px;
+  gap: 7px;
+  min-width: 0;
+}
+
+.cart-item__title {
+  font-size: 1.26rem;
+  font-weight: 900;
+}
+
+.cart-item__options {
+  max-width: 560px;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  font-weight: 720;
+}
+
+.cart-item__unit {
+  color: var(--color-soft);
+  font-size: 0.92rem;
+  font-weight: 760;
+}
+
+.cart-item__total {
+  color: var(--color-accent-dark);
+  font-size: 1.18rem;
+  font-weight: 950;
+  text-align: right;
+  white-space: nowrap;
 }
 
 .cart-item__actions {
@@ -534,17 +575,29 @@
   gap: 8px;
 }
 
+.cart-item__actions .button {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 0.9rem;
+}
+
 .cart-summary {
   position: sticky;
   top: 92px;
   display: grid;
-  gap: 14px;
-  padding: 22px;
+  gap: 16px;
+  padding: 24px;
+}
+
+.cart-summary h2 {
+  font-size: 1.36rem;
+  font-weight: 900;
 }
 
 .cart-summary strong {
   color: var(--color-accent-dark);
-  font-size: 2rem;
+  font-size: 2.15rem;
+  line-height: 1;
 }
 
 .cart-form-layout {
@@ -702,6 +755,12 @@
   gap: 16px;
 }
 
+@media (max-width: 960px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 720px) {
   .hero__content h1,
   .page-hero__content h1,
@@ -727,10 +786,25 @@
 
   .hero {
     min-height: 500px;
+    background:
+      linear-gradient(90deg, rgba(251, 246, 237, 0.98) 0%, rgba(251, 246, 237, 0.86) 58%, rgba(251, 246, 237, 0.34) 100%),
+      linear-gradient(180deg, rgba(255, 253, 248, 0.32), rgba(241, 232, 220, 0.32)),
+      url("../../../assets/images/banners/main-hero-cafe.png");
+    background-position: 64% center;
+    background-size: cover;
   }
 
   .page-hero {
     padding: 70px 0 48px;
+  }
+
+  .page-hero--home {
+    background:
+      linear-gradient(90deg, rgba(251, 246, 237, 0.98) 0%, rgba(251, 246, 237, 0.86) 58%, rgba(251, 246, 237, 0.34) 100%),
+      linear-gradient(180deg, rgba(255, 253, 248, 0.32), rgba(241, 232, 220, 0.32)),
+      url("../../../assets/images/banners/main-hero-cafe.png");
+    background-position: 64% center;
+    background-size: cover;
   }
 
   .section {
@@ -768,6 +842,10 @@
     height: 180px;
   }
 
+  .cart-item__total {
+    text-align: left;
+  }
+
   .cart-item__actions,
   .detail-actions,
   .hero__actions {
@@ -777,6 +855,10 @@
 
   .order-card,
   .order-detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-grid {
     grid-template-columns: 1fr;
   }
 

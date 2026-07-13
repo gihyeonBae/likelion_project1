@@ -12,7 +12,7 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 
 const params = new URLSearchParams(window.location.search);
 const cartItem = getCartItemById(params.get('id'));
-const menu = cartItem ? getMenuById(cartItem.menuId) : null;
+const menu = cartItem ? await getMenuById(cartItem.menuId) : null;
 const container = document.getElementById('cart-update');
 
 function isSelected(optionValue, selectedValue) {

@@ -7,7 +7,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menu = getMenuById(new URLSearchParams(window.location.search).get('id'));
+const menu = await getMenuById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('menu-delete');
 
 container.innerHTML = menu
@@ -29,7 +29,7 @@ container.innerHTML = menu
     </div>
   `;
 
-document.getElementById('delete-menu')?.addEventListener('click', () => {
-  deleteMenu(menu.id);
+document.getElementById('delete-menu')?.addEventListener('click', async () => {
+  await deleteMenu(menu.id);
   window.location.href = '../read/list/index.html';
 });

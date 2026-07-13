@@ -11,8 +11,8 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menu = getMenuById(new URLSearchParams(window.location.search).get('id'));
-const categories = getCategories();
+const menu = await getMenuById(new URLSearchParams(window.location.search).get('id'));
+const categories = await getCategories();
 const container = document.getElementById('admin-menu-detail');
 
 container.innerHTML = menu

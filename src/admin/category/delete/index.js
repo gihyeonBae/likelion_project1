@@ -8,8 +8,8 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const category = getCategoryById(new URLSearchParams(window.location.search).get('id'));
-const menus = getMenus().filter((menu) => menu.categoryId === category?.id);
+const category = await getCategoryById(new URLSearchParams(window.location.search).get('id'));
+const menus = (await getMenus()).filter((menu) => menu.categoryId === category?.id);
 const container = document.getElementById('category-delete');
 
 container.innerHTML = category
@@ -33,7 +33,7 @@ container.innerHTML = category
     </div>
   `;
 
-document.getElementById('delete-category')?.addEventListener('click', () => {
-  deleteCategory(category.id);
+document.getElementById('delete-category')?.addEventListener('click', async () => {
+  await deleteCategory(category.id);
   window.location.href = '../read/index.html';
 });

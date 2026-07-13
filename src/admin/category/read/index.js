@@ -9,8 +9,8 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const categories = getCategories().sort((first, second) => first.sortOrder - second.sortOrder);
-const menus = getMenus();
+const categories = (await getCategories()).sort((first, second) => first.sortOrder - second.sortOrder);
+const menus = await getMenus();
 
 document.getElementById('category-list').innerHTML = categories.length
   ? categories.map((category) => createAdminCategoryRow(

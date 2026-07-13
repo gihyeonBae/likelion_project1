@@ -58,11 +58,11 @@ export function createOrderItemRows(items, { basePath = '../../../../..' } = {})
       </div>
       <div class="cart-item__body">
         <p class="eyebrow">${item.menuNameEn}</p>
-        <h3>${item.menuNameKo}</h3>
-        <p class="menu-card__meta">${formatCartOptions(item.options)}</p>
-        <p>${formatCurrency(item.unitPrice)} × ${item.quantity}</p>
+        <h3 class="cart-item__title">${item.menuNameKo}</h3>
+        <p class="cart-item__options">${formatCartOptions(item.options)}</p>
+        <p class="cart-item__unit">${formatCurrency(item.unitPrice)} × ${item.quantity}</p>
       </div>
-      <strong>${formatCurrency(item.lineTotal)}</strong>
+      <strong class="cart-item__total">${formatCurrency(item.lineTotal)}</strong>
     </article>
   `).join('');
 }

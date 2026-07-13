@@ -11,7 +11,7 @@ document.getElementById('app-header').innerHTML = renderHeader('cart', basePath)
 document.getElementById('app-footer').innerHTML = renderFooter();
 
 const cartItems = getCartItems();
-const menus = getMenus();
+const menus = await getMenus();
 const cartList = document.getElementById('cart-list');
 
 cartList.innerHTML = cartItems.length

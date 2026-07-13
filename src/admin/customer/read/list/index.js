@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const customers = getCustomers();
+const customers = await getCustomers();
 const statusFilter = document.getElementById('status-filter');
 
 function renderCustomers() {

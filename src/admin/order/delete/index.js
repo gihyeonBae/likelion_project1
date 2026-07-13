@@ -7,7 +7,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = getOrderById(new URLSearchParams(window.location.search).get('id'));
+const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('order-delete');
 
 container.innerHTML = order
@@ -29,7 +29,7 @@ container.innerHTML = order
     </div>
   `;
 
-document.getElementById('delete-order')?.addEventListener('click', () => {
-  deleteOrder(order.id);
+document.getElementById('delete-order')?.addEventListener('click', async () => {
+  await deleteOrder(order.id);
   window.location.href = '../read/list/index.html';
 });

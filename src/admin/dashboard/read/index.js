@@ -8,10 +8,10 @@ import { getCustomers } from '../../../shared/services/auth-service.js';
 document.getElementById('app-header').innerHTML = renderHeader('admin', '../../../..');
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menus = getMenus();
-const categories = getCategories();
-const orders = getOrders();
-const customers = getCustomers();
+const menus = await getMenus();
+const categories = await getCategories();
+const orders = await getOrders();
+const customers = await getCustomers();
 
 document.getElementById('admin-summary').innerHTML = `
   <a class="category-card" href="../../menu/read/list/index.html">

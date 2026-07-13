@@ -10,7 +10,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const categories = getCategories();
+const categories = await getCategories();
 const container = document.getElementById('menu-create');
 
 if (!categories.length) {
@@ -23,7 +23,7 @@ if (!categories.length) {
 } else {
   container.innerHTML = createMenuForm({ categories, submitLabel: '메뉴 등록' });
 
-  document.getElementById('menu-form').addEventListener('submit', (event) => {
+  document.getElementById('menu-form').addEventListener('submit', async (event) => {
     event.preventDefault();
 
     const payload = getMenuPayloadFromForm(event.currentTarget);
@@ -34,7 +34,7 @@ if (!categories.length) {
       return;
     }
 
-    const menu = createMenu(payload);
+    const menu = await createMenu(payload);
     window.location.href = `../read/detail/index.html?id=${menu.id}`;
   });
 }

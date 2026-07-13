@@ -9,8 +9,8 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menus = getMenus();
-const categories = getCategories();
+const menus = await getMenus();
+const categories = await getCategories();
 const categoryFilter = document.getElementById('category-filter');
 const statusFilter = document.getElementById('status-filter');
 

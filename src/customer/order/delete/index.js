@@ -8,7 +8,7 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('order', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = getOrderById(new URLSearchParams(window.location.search).get('id'));
+const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
 const container = document.getElementById('order-delete');
 
 container.innerHTML = order && order.status !== 'canceled'
@@ -30,7 +30,7 @@ container.innerHTML = order && order.status !== 'canceled'
     </div>
   `;
 
-document.getElementById('cancel-order')?.addEventListener('click', () => {
-  cancelOrder(order.id);
+document.getElementById('cancel-order')?.addEventListener('click', async () => {
+  await cancelOrder(order.id);
   window.location.href = `../read/detail/index.html?id=${order.id}`;
 });

@@ -12,8 +12,8 @@ const basePath = '../../../../..';
 const params = new URLSearchParams(window.location.search);
 const activeCategoryId = params.get('category') || 'all';
 const activeSort = params.get('sort') || 'recommended';
-const menus = getMenus();
-const allCategories = getCategories();
+const menus = await getMenus();
+const allCategories = await getCategories();
 const categories = getVisibleCategories(allCategories);
 const sortSelect = document.getElementById('sort-select');
 

@@ -8,7 +8,7 @@ const basePath = '../../../../..';
 const params = new URLSearchParams(window.location.search);
 const keyword = params.get('keyword') || '';
 const input = document.getElementById('keyword-input');
-const results = sortMenus(filterMenus(getMenus(), { keyword }));
+const results = sortMenus(filterMenus(await getMenus(), { keyword }));
 
 document.getElementById('app-header').innerHTML = renderHeader('menu', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();

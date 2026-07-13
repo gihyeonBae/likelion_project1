@@ -10,7 +10,7 @@ document.getElementById('app-header').innerHTML = renderHeader('admin', basePath
 document.getElementById('app-footer').innerHTML = renderFooter();
 document.getElementById('category-create').innerHTML = createCategoryForm({ submitLabel: '카테고리 등록' });
 
-document.getElementById('category-form').addEventListener('submit', (event) => {
+document.getElementById('category-form').addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const payload = getCategoryPayloadFromForm(event.currentTarget);
@@ -22,7 +22,7 @@ document.getElementById('category-form').addEventListener('submit', (event) => {
   }
 
   try {
-    createCategory(payload);
+    await createCategory(payload);
     window.location.href = '../read/index.html';
   } catch (createError) {
     error.textContent = createError.message;
