@@ -1,12 +1,10 @@
 {
-"name": "my-website"
-,
-"version": "1.0.0"
-,
-"scripts": {
-"start": "serve -l 3133"
-},
-"dependencies": {
-"serve": "^14.2.4"
-}
+  "name": "gh-cafe-order",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve . -l tcp://0.0.0.0:${PORT:-3133} -c serve.json"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
 }
