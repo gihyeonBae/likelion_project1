@@ -9,8 +9,14 @@ const basePath = '../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('order', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
+const params = new URLSearchParams(window.location.search);
+const requestedOrderId = params.get('id');
+const order = await getOrderById(requestedOrderId);
 const container = document.getElementById('payment-create');
+
+if (order && !requestedOrderId) {
+  window.history.replaceState(null, '', `/src/customer/payment/create/index.html?id=${order.id}`);
+}
 
 if (!order) {
   container.innerHTML = `

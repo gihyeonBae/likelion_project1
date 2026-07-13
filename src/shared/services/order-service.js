@@ -2,6 +2,7 @@ import { readStorage, writeStorage } from './storage.js';
 import { runSupabaseQuery } from './supabase-client.js';
 
 const ORDER_STORAGE_KEY = 'orders';
+const LAST_ORDER_STORAGE_KEY = 'last-order-id';
 
 function createOrderId() {
   const timestamp = new Date();
@@ -62,6 +63,45 @@ function saveLocalOrders(orders) {
   return writeStorage(ORDER_STORAGE_KEY, orders);
 }
 
+function rememberLastOrder(order) {
+  if (order?.id) {
+    writeStorage(LAST_ORDER_STORAGE_KEY, order.id);
+  }
+}
+
+function saveLocalOrder(order) {
+  if (!order) {
+    return null;
+  }
+
+  const orders = getLocalOrders().filter((item) => item.id !== order.id);
+  saveLocalOrders([order, ...orders]);
+  rememberLastOrder(order);
+  return order;
+}
+
+function getLastOrderId() {
+  return readStorage(LAST_ORDER_STORAGE_KEY, null);
+}
+
+async function getLatestOrder() {
+  const localLatestOrder = getLocalOrders()[0] || null;
+
+  if (localLatestOrder) {
+    rememberLastOrder(localLatestOrder);
+    return localLatestOrder;
+  }
+
+  const rows = await runSupabaseQuery(
+    (client) => client.from('orders').select('*').order('created_at', { ascending: false }).limit(1),
+    undefined,
+    'getLatestOrder',
+  );
+
+  const latestOrder = rows?.[0] ? mapOrderRow(rows[0]) : null;
+  return latestOrder ? saveLocalOrder(latestOrder) : null;
+}
+
 export async function getOrders() {
   const localOrders = getLocalOrders();
   const rows = await runSupabaseQuery(
@@ -70,7 +110,18 @@ export async function getOrders() {
     'getOrders',
   );
 
-  return rows !== undefined ? rows.map(mapOrderRow) : localOrders;
+  if (rows !== undefined) {
+    const orders = rows.map(mapOrderRow);
+
+    if (orders.length) {
+      saveLocalOrders(orders);
+      rememberLastOrder(orders[0]);
+    }
+
+    return orders;
+  }
+
+  return localOrders;
 }
 
 export async function saveOrders(orders) {
@@ -84,17 +135,23 @@ export async function saveOrders(orders) {
 }
 
 export async function getOrderById(orderId) {
+  const targetOrderId = orderId || getLastOrderId();
+
+  if (!targetOrderId) {
+    return getLatestOrder();
+  }
+
   const row = await runSupabaseQuery(
-    (client) => client.from('orders').select('*').eq('id', orderId).maybeSingle(),
+    (client) => client.from('orders').select('*').eq('id', targetOrderId).maybeSingle(),
     undefined,
     'getOrderById',
   );
 
   if (row !== undefined) {
-    return row ? mapOrderRow(row) : null;
+    return row ? saveLocalOrder(mapOrderRow(row)) : getLocalOrders().find((order) => order.id === targetOrderId) || null;
   }
 
-  return getLocalOrders().find((order) => order.id === orderId) || null;
+  return getLocalOrders().find((order) => order.id === targetOrderId) || null;
 }
 
 export async function createOrder(orderData) {
@@ -120,11 +177,10 @@ export async function createOrder(orderData) {
   );
 
   if (row !== undefined) {
-    return mapOrderRow(row);
+    return saveLocalOrder(mapOrderRow(row));
   }
 
-  saveLocalOrders([order, ...getLocalOrders()]);
-  return order;
+  return saveLocalOrder(order);
 }
 
 export async function updateOrder(orderId, updates) {
@@ -147,7 +203,7 @@ export async function updateOrder(orderId, updates) {
   );
 
   if (row !== undefined) {
-    return mapOrderRow(row);
+    return saveLocalOrder(mapOrderRow(row));
   }
 
   const orders = getLocalOrders().map((order) => {
@@ -159,7 +215,7 @@ export async function updateOrder(orderId, updates) {
   });
 
   saveLocalOrders(orders);
-  return getLocalOrders().find((order) => order.id === orderId) || null;
+  return saveLocalOrder(updatedOrder);
 }
 
 export async function cancelOrder(orderId) {

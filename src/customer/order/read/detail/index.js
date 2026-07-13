@@ -10,8 +10,14 @@ const basePath = '../../../../..';
 document.getElementById('app-header').innerHTML = renderHeader('order', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const order = await getOrderById(new URLSearchParams(window.location.search).get('id'));
+const params = new URLSearchParams(window.location.search);
+const requestedOrderId = params.get('id');
+const order = await getOrderById(requestedOrderId);
 const container = document.getElementById('order-detail');
+
+if (order && !requestedOrderId) {
+  window.history.replaceState(null, '', `/src/customer/order/read/detail/index.html?id=${order.id}`);
+}
 
 container.innerHTML = order
   ? `
