@@ -1,5 +1,5 @@
 import { readStorage, writeStorage } from './storage.js';
-import { runSupabaseQuery } from './supabase-client.js';
+import { isSupabaseConfigured, runRequiredSupabaseQuery, runSupabaseQuery } from './supabase-client.js';
 import { updateOrder } from './order-service.js';
 
 const PAYMENT_STORAGE_KEY = 'payments';
@@ -103,11 +103,12 @@ export async function createPayment({ order, method }) {
     createdAt: new Date().toISOString(),
   };
 
-  const row = await runSupabaseQuery(
-    (client) => client.from('payments').insert(mapPaymentToRow(payment)).select().single(),
-    undefined,
-    'createPayment',
-  );
+  const row = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('payments').insert(mapPaymentToRow(payment)).select().single(),
+      'createPayment',
+    )
+    : undefined;
   const savedPayment = row ? mapPaymentRow(row) : payment;
 
   saveLocalPayments([savedPayment, ...getLocalPayments().filter((item) => item.id !== savedPayment.id)]);
