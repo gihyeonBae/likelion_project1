@@ -16,6 +16,35 @@ const menu = menuId ? await getMenuById(menuId) : null;
 const categories = await getCategories();
 const container = document.getElementById('menu-update');
 
+function renderMenuForm(menuToEdit) {
+  container.innerHTML = createMenuForm({ menu: menuToEdit, categories, submitLabel: '수정 저장' });
+
+  document.getElementById('menu-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const payload = getMenuPayloadFromForm(event.currentTarget);
+    const error = document.getElementById('form-error');
+
+    if (![payload.nameKo, payload.nameEn, payload.categoryId, payload.description].every(isRequired) || payload.price < 0) {
+      error.textContent = '필수 항목과 가격을 확인해 주세요.';
+      return;
+    }
+
+    try {
+      const updatedMenu = await updateMenu(menuToEdit.id, payload);
+
+      if (!updatedMenu) {
+        error.textContent = '수정할 메뉴를 찾을 수 없습니다.';
+        return;
+      }
+
+      window.location.href = `/src/admin/menu/read/detail/index.html?id=${updatedMenu.id}`;
+    } catch (updateError) {
+      error.textContent = updateError.message || '메뉴 수정에 실패했습니다.';
+    }
+  });
+}
+
 if (!menu) {
   const menus = await getMenus();
 
@@ -44,31 +73,25 @@ if (!menu) {
       </div>
     </section>
   `;
-} else {
-  container.innerHTML = createMenuForm({ menu, categories, submitLabel: '수정 저장' });
+  container.addEventListener('click', async (event) => {
+    const updateLink = event.target.closest('a[href*="/src/admin/menu/update"]');
 
-  document.getElementById('menu-form').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const payload = getMenuPayloadFromForm(event.currentTarget);
-    const error = document.getElementById('form-error');
-
-    if (![payload.nameKo, payload.nameEn, payload.categoryId, payload.description].every(isRequired) || payload.price < 0) {
-      error.textContent = '필수 항목과 가격을 확인해 주세요.';
+    if (!updateLink) {
       return;
     }
 
-    try {
-      const updatedMenu = await updateMenu(menu.id, payload);
+    event.preventDefault();
+    const selectedMenuId = new URL(updateLink.href).searchParams.get('id');
+    const selectedMenu = selectedMenuId ? await getMenuById(selectedMenuId) : null;
 
-      if (!updatedMenu) {
-        error.textContent = '수정할 메뉴를 찾을 수 없습니다.';
-        return;
-      }
-
-      window.location.href = `/src/admin/menu/read/detail/index.html?id=${updatedMenu.id}`;
-    } catch (updateError) {
-      error.textContent = updateError.message || '메뉴 수정에 실패했습니다.';
+    if (!selectedMenu) {
+      container.querySelector('.hero__description').textContent = '선택한 메뉴를 찾을 수 없습니다. 목록을 새로고침해 주세요.';
+      return;
     }
+
+    window.history.pushState(null, '', `/src/admin/menu/update/index.html?id=${selectedMenu.id}`);
+    renderMenuForm(selectedMenu);
   });
+} else {
+  renderMenuForm(menu);
 }
