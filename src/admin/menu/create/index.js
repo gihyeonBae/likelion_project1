@@ -34,7 +34,11 @@ if (!categories.length) {
       return;
     }
 
-    const menu = await createMenu(payload);
-    window.location.href = `/src/admin/menu/read/detail/index.html?id=${menu.id}`;
+    try {
+      const menu = await createMenu(payload);
+      window.location.href = `/src/admin/menu/read/detail/index.html?id=${menu.id}`;
+    } catch (createError) {
+      error.textContent = createError.message || '메뉴 등록에 실패했습니다.';
+    }
   });
 }

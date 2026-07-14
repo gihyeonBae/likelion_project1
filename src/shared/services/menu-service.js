@@ -1,6 +1,6 @@
 import { MENU_ITEMS } from '../../../data/menu.js';
 import { readStorage, writeStorage } from './storage.js';
-import { runSupabaseQuery } from './supabase-client.js';
+import { isSupabaseConfigured, runRequiredSupabaseQuery, runSupabaseQuery } from './supabase-client.js';
 
 const MENU_STORAGE_KEY = 'menus';
 
@@ -54,6 +54,16 @@ function saveLocalMenus(menus) {
   return writeStorage(MENU_STORAGE_KEY, menus);
 }
 
+function saveLocalMenu(menu) {
+  if (!menu) {
+    return null;
+  }
+
+  const menus = getLocalMenus().filter((item) => item.id !== menu.id);
+  saveLocalMenus([menu, ...menus]);
+  return menu;
+}
+
 export async function getMenus() {
   const localMenus = getLocalMenus();
   const rows = await runSupabaseQuery(
@@ -62,7 +72,13 @@ export async function getMenus() {
     'getMenus',
   );
 
-  return rows !== undefined ? rows.map(mapMenuRow) : localMenus;
+  if (rows !== undefined) {
+    const menus = rows.map(mapMenuRow);
+    saveLocalMenus(menus);
+    return menus;
+  }
+
+  return localMenus;
 }
 
 export async function saveMenus(menus) {
@@ -83,7 +99,7 @@ export async function getMenuById(menuId) {
   );
 
   if (rows !== undefined) {
-    return rows ? mapMenuRow(rows) : null;
+    return rows ? saveLocalMenu(mapMenuRow(rows)) : null;
   }
 
   return getLocalMenus().find((menu) => menu.id === menuId) || null;
@@ -96,18 +112,18 @@ export async function createMenu(menuData) {
     createdAt: new Date().toISOString(),
   };
 
-  const rows = await runSupabaseQuery(
-    (client) => client.from('menus').insert(mapMenuToRow(menu)).select().single(),
-    undefined,
-    'createMenu',
-  );
+  const rows = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('menus').insert(mapMenuToRow(menu)).select().single(),
+      'createMenu',
+    )
+    : undefined;
 
   if (rows !== undefined) {
-    return mapMenuRow(rows);
+    return saveLocalMenu(mapMenuRow(rows));
   }
 
-  saveLocalMenus([menu, ...getLocalMenus()]);
-  return menu;
+  return saveLocalMenu(menu);
 }
 
 export async function updateMenu(menuId, updates) {
@@ -123,14 +139,15 @@ export async function updateMenu(menuId, updates) {
     updatedAt: new Date().toISOString(),
   };
 
-  const rows = await runSupabaseQuery(
-    (client) => client.from('menus').update(mapMenuToRow(updatedMenu)).eq('id', menuId).select().single(),
-    undefined,
-    'updateMenu',
-  );
+  const rows = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('menus').update(mapMenuToRow(updatedMenu)).eq('id', menuId).select().single(),
+      'updateMenu',
+    )
+    : undefined;
 
   if (rows !== undefined) {
-    return mapMenuRow(rows);
+    return saveLocalMenu(mapMenuRow(rows));
   }
 
   const menus = getLocalMenus().map((menu) => {
@@ -142,15 +159,16 @@ export async function updateMenu(menuId, updates) {
   });
 
   saveLocalMenus(menus);
-  return getLocalMenus().find((menu) => menu.id === menuId) || null;
+  return saveLocalMenu(updatedMenu);
 }
 
 export async function deleteMenu(menuId) {
-  const rows = await runSupabaseQuery(
-    (client) => client.from('menus').delete().eq('id', menuId),
-    undefined,
-    'deleteMenu',
-  );
+  const rows = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('menus').delete().eq('id', menuId),
+      'deleteMenu',
+    )
+    : undefined;
 
   if (rows !== undefined) {
     return;

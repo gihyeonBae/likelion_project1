@@ -35,7 +35,17 @@ if (!menu) {
       return;
     }
 
-    await updateMenu(menu.id, payload);
-    window.location.href = `/src/admin/menu/read/detail/index.html?id=${menu.id}`;
+    try {
+      const updatedMenu = await updateMenu(menu.id, payload);
+
+      if (!updatedMenu) {
+        error.textContent = '수정할 메뉴를 찾을 수 없습니다.';
+        return;
+      }
+
+      window.location.href = `/src/admin/menu/read/detail/index.html?id=${updatedMenu.id}`;
+    } catch (updateError) {
+      error.textContent = updateError.message || '메뉴 수정에 실패했습니다.';
+    }
   });
 }

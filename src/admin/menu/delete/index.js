@@ -16,6 +16,7 @@ container.innerHTML = menu
       <p class="eyebrow">Delete menu</p>
       <h1>${menu.nameKo} 삭제</h1>
       <p class="hero__description">고객 화면에서도 이 메뉴가 더 이상 보이지 않습니다.</p>
+      <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" id="delete-menu" type="button">삭제</button>
         <a class="button button--ghost" href="/src/admin/menu/read/detail/index.html?id=${menu.id}">취소</a>
@@ -30,6 +31,12 @@ container.innerHTML = menu
   `;
 
 document.getElementById('delete-menu')?.addEventListener('click', async () => {
-  await deleteMenu(menu.id);
-  window.location.href = '/src/admin/menu/read/list/index.html';
+  const error = document.getElementById('form-error');
+
+  try {
+    await deleteMenu(menu.id);
+    window.location.href = '/src/admin/menu/read/list/index.html';
+  } catch (deleteError) {
+    error.textContent = deleteError.message || '메뉴 삭제에 실패했습니다.';
+  }
 });
