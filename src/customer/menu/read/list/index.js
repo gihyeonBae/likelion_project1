@@ -10,15 +10,19 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 
 const basePath = '../../../../..';
 const params = new URLSearchParams(window.location.search);
-const activeCategoryId = params.get('category') || 'all';
+let activeCategoryId = params.get('category') || 'all';
 const activeSort = params.get('sort') || 'recommended';
 const menus = await getMenus();
 const allCategories = await getCategories();
 const categories = getVisibleCategories(allCategories);
 const sortSelect = document.getElementById('sort-select');
+const categoryTabs = document.getElementById('category-tabs');
 
 sortSelect.value = activeSort;
-document.getElementById('category-tabs').innerHTML = createCategoryTabs(categories, activeCategoryId, { basePath });
+
+function renderCategoryTabs() {
+  categoryTabs.innerHTML = createCategoryTabs(categories, activeCategoryId, { basePath });
+}
 
 function renderMenus() {
   const sortedMenus = sortMenus(
@@ -32,12 +36,31 @@ function renderMenus() {
   document.getElementById('menu-list').innerHTML = createMenuGrid(sortedMenus, { basePath });
 }
 
-sortSelect.addEventListener('change', () => {
+function updateUrl() {
   const nextParams = new URLSearchParams(window.location.search);
-  nextParams.set('sort', sortSelect.value);
   nextParams.set('category', activeCategoryId);
+  nextParams.set('sort', sortSelect.value);
   window.history.replaceState(null, '', `?${nextParams.toString()}`);
+}
+
+categoryTabs.addEventListener('click', (event) => {
+  const tab = event.target.closest('a[href*="category="]');
+
+  if (!tab) {
+    return;
+  }
+
+  event.preventDefault();
+  activeCategoryId = new URL(tab.href).searchParams.get('category') || 'all';
+  updateUrl();
+  renderCategoryTabs();
   renderMenus();
 });
 
+sortSelect.addEventListener('change', () => {
+  updateUrl();
+  renderMenus();
+});
+
+renderCategoryTabs();
 renderMenus();
