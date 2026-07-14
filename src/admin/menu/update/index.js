@@ -1,25 +1,48 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
 import { getCategories } from '../../../shared/services/category-service.js';
-import { getMenuById, updateMenu } from '../../../shared/services/menu-service.js';
+import { getMenuById, getMenus, updateMenu } from '../../../shared/services/menu-service.js';
 import { isRequired } from '../../../shared/utils/validation.js';
-import { createMenuForm, getMenuPayloadFromForm } from '../_shared/admin-menu.js';
+import { createAdminMenuRow, createMenuForm, getMenuPayloadFromForm } from '../_shared/admin-menu.js';
 
 const basePath = '../../../..';
 
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const menu = await getMenuById(new URLSearchParams(window.location.search).get('id'));
+const params = new URLSearchParams(window.location.search);
+const menuId = params.get('id');
+const menu = menuId ? await getMenuById(menuId) : null;
 const categories = await getCategories();
 const container = document.getElementById('menu-update');
 
 if (!menu) {
+  const menus = await getMenus();
+
   container.innerHTML = `
-    <div class="empty-state">
-      <p>수정할 메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/menu/read/list/index.html">목록</a>
-    </div>
+    <section class="page-hero page-hero--menu">
+      <div class="page-hero__content">
+        <p class="eyebrow">Admin menu</p>
+        <h1>수정할 메뉴 선택</h1>
+        <p class="hero__description">수정하려는 메뉴의 수정 버튼을 눌러 주세요.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="/src/admin/menu/create/index.html">메뉴 등록</a>
+          <a class="button button--ghost" href="/src/admin/menu/read/list/index.html">목록</a>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="cart-list">
+        ${menus.length
+          ? menus.map((item) => createAdminMenuRow(item, categories, { basePath })).join('')
+          : `
+            <div class="empty-state">
+              <p>등록된 메뉴가 없습니다.</p>
+              <a class="button button--primary" href="/src/admin/menu/create/index.html">메뉴 등록</a>
+            </div>
+          `}
+      </div>
+    </section>
   `;
 } else {
   container.innerHTML = createMenuForm({ menu, categories, submitLabel: '수정 저장' });

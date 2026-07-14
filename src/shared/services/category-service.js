@@ -1,6 +1,6 @@
 import { CATEGORIES } from '../../../data/categories.js';
 import { readStorage, writeStorage } from './storage.js';
-import { runSupabaseQuery } from './supabase-client.js';
+import { isSupabaseConfigured, runRequiredSupabaseQuery, runSupabaseQuery } from './supabase-client.js';
 
 const CATEGORY_STORAGE_KEY = 'categories';
 
@@ -47,6 +47,16 @@ function saveLocalCategories(categories) {
   return writeStorage(CATEGORY_STORAGE_KEY, categories);
 }
 
+function saveLocalCategory(category) {
+  if (!category) {
+    return null;
+  }
+
+  const categories = getLocalCategories().filter((item) => item.id !== category.id);
+  saveLocalCategories([...categories, category].sort((first, second) => first.sortOrder - second.sortOrder));
+  return category;
+}
+
 export async function getCategories() {
   const localCategories = getLocalCategories();
   const rows = await runSupabaseQuery(
@@ -55,7 +65,13 @@ export async function getCategories() {
     'getCategories',
   );
 
-  return rows !== undefined ? rows.map(mapCategoryRow) : localCategories;
+  if (rows !== undefined) {
+    const categories = rows.map(mapCategoryRow);
+    saveLocalCategories(categories);
+    return categories;
+  }
+
+  return localCategories;
 }
 
 export async function saveCategories(categories) {
@@ -76,7 +92,7 @@ export async function getCategoryById(categoryId) {
   );
 
   if (row !== undefined) {
-    return row ? mapCategoryRow(row) : null;
+    return row ? saveLocalCategory(mapCategoryRow(row)) : null;
   }
 
   return getLocalCategories().find((category) => category.id === categoryId) || null;
@@ -103,18 +119,18 @@ export async function createCategory(categoryData) {
     createdAt: new Date().toISOString(),
   };
 
-  const row = await runSupabaseQuery(
-    (client) => client.from('categories').insert(mapCategoryToRow(category)).select().single(),
-    undefined,
-    'createCategory',
-  );
+  const row = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('categories').insert(mapCategoryToRow(category)).select().single(),
+      'createCategory',
+    )
+    : undefined;
 
   if (row !== undefined) {
-    return mapCategoryRow(row);
+    return saveLocalCategory(mapCategoryRow(row));
   }
 
-  saveLocalCategories([...getLocalCategories(), category]);
-  return category;
+  return saveLocalCategory(category);
 }
 
 export async function updateCategory(categoryId, updates) {
@@ -132,14 +148,15 @@ export async function updateCategory(categoryId, updates) {
     updatedAt: new Date().toISOString(),
   };
 
-  const row = await runSupabaseQuery(
-    (client) => client.from('categories').update(mapCategoryToRow(updatedCategory)).eq('id', categoryId).select().single(),
-    undefined,
-    'updateCategory',
-  );
+  const row = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('categories').update(mapCategoryToRow(updatedCategory)).eq('id', categoryId).select().single(),
+      'updateCategory',
+    )
+    : undefined;
 
   if (row !== undefined) {
-    return mapCategoryRow(row);
+    return saveLocalCategory(mapCategoryRow(row));
   }
 
   const categories = getLocalCategories().map((category) => {
@@ -151,15 +168,16 @@ export async function updateCategory(categoryId, updates) {
   });
 
   saveLocalCategories(categories);
-  return getLocalCategories().find((category) => category.id === categoryId) || null;
+  return saveLocalCategory(updatedCategory);
 }
 
 export async function deleteCategory(categoryId) {
-  const row = await runSupabaseQuery(
-    (client) => client.from('categories').delete().eq('id', categoryId),
-    undefined,
-    'deleteCategory',
-  );
+  const row = isSupabaseConfigured()
+    ? await runRequiredSupabaseQuery(
+      (client) => client.from('categories').delete().eq('id', categoryId),
+      'deleteCategory',
+    )
+    : undefined;
 
   if (row !== undefined) {
     return;

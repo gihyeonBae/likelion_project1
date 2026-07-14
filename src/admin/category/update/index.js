@@ -1,23 +1,52 @@
 import { renderHeader } from '../../../shared/components/header.js';
 import { renderFooter } from '../../../shared/components/footer.js';
-import { getCategoryById, updateCategory } from '../../../shared/services/category-service.js';
+import { getCategories, getCategoryById, updateCategory } from '../../../shared/services/category-service.js';
+import { getMenus } from '../../../shared/services/menu-service.js';
 import { isRequired } from '../../../shared/utils/validation.js';
-import { createCategoryForm, getCategoryPayloadFromForm } from '../_shared/admin-category.js';
+import { createAdminCategoryRow, createCategoryForm, getCategoryPayloadFromForm } from '../_shared/admin-category.js';
 
 const basePath = '../../../..';
 
 document.getElementById('app-header').innerHTML = renderHeader('admin', basePath);
 document.getElementById('app-footer').innerHTML = renderFooter();
 
-const category = await getCategoryById(new URLSearchParams(window.location.search).get('id'));
+const params = new URLSearchParams(window.location.search);
+const categoryId = params.get('id');
+const category = categoryId ? await getCategoryById(categoryId) : null;
 const container = document.getElementById('category-update');
 
 if (!category) {
+  const categories = (await getCategories()).sort((first, second) => first.sortOrder - second.sortOrder);
+  const menus = await getMenus();
+
   container.innerHTML = `
-    <div class="empty-state">
-      <p>수정할 카테고리를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/category/read/index.html">목록</a>
-    </div>
+    <section class="page-hero page-hero--menu">
+      <div class="page-hero__content">
+        <p class="eyebrow">Admin category</p>
+        <h1>수정할 카테고리 선택</h1>
+        <p class="hero__description">수정하려는 카테고리의 수정 버튼을 눌러 주세요.</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="/src/admin/category/create/index.html">카테고리 등록</a>
+          <a class="button button--ghost" href="/src/admin/category/read/index.html">목록</a>
+        </div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="cart-list">
+        ${categories.length
+          ? categories.map((item) => createAdminCategoryRow(
+            item,
+            menus.filter((menu) => menu.categoryId === item.id).length,
+            { basePath },
+          )).join('')
+          : `
+            <div class="empty-state">
+              <p>등록된 카테고리가 없습니다.</p>
+              <a class="button button--primary" href="/src/admin/category/create/index.html">카테고리 등록</a>
+            </div>
+          `}
+      </div>
+    </section>
   `;
 } else {
   container.innerHTML = createCategoryForm({ category, submitLabel: '수정 저장' });
@@ -33,7 +62,17 @@ if (!category) {
       return;
     }
 
-    await updateCategory(category.id, payload);
-    window.location.href = '/src/admin/category/read/index.html';
+    try {
+      const updatedCategory = await updateCategory(category.id, payload);
+
+      if (!updatedCategory) {
+        error.textContent = '수정할 카테고리를 찾을 수 없습니다.';
+        return;
+      }
+
+      window.location.href = '/src/admin/category/read/index.html';
+    } catch (updateError) {
+      error.textContent = updateError.message || '카테고리 수정에 실패했습니다.';
+    }
   });
 }
