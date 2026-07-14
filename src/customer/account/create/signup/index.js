@@ -30,7 +30,7 @@ document.getElementById('signup-form').addEventListener('submit', async (event) 
 
   try {
     await signupCustomer({ name, email, password, phone });
-    window.location.href = '/src/customer/account/read/profile/index.html';
+    window.location.href = '/src/customer/account/read/profile';
   } catch (signupError) {
     error.textContent = signupError.message;
   }

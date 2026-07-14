@@ -16,7 +16,7 @@ if (!item) {
   container.innerHTML = `
     <div class="empty-state">
       <p>수정할 재고를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/inventory/read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/inventory/read/list">목록</a>
     </div>
   `;
 } else {
@@ -33,6 +33,6 @@ if (!item) {
     }
 
     updateInventoryItem(item.id, payload);
-    window.location.href = '/src/admin/inventory/read/list/index.html';
+    window.location.href = '/src/admin/inventory/read/list';
   });
 }

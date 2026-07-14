@@ -58,7 +58,7 @@ export function createInventoryForm({ item = {}, submitLabel }) {
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">${submitLabel}</button>
-        <a class="button button--ghost" href="/src/admin/inventory/read/list/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/inventory/read/list">목록</a>
       </div>
     </form>
   `;
@@ -88,9 +88,9 @@ export function createInventoryRow(item, { basePath }) {
         <p class="menu-card__meta">현재 ${item.quantity}${item.unit} · 안전 재고 ${item.safetyQuantity}${item.unit}</p>
       </div>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="/src/admin/inventory/update/index.html?id=${item.id}">수정</a>
-        <a class="button button--ghost" href="/src/admin/inventory/read/history/index.html?id=${item.id}">입고 기록</a>
-        <a class="button button--ghost" href="/src/admin/inventory/delete/index.html?id=${item.id}">삭제</a>
+        <a class="button button--ghost" href="/src/admin/inventory/update?id=${item.id}">수정</a>
+        <a class="button button--ghost" href="/src/admin/inventory/read/history?id=${item.id}">입고 기록</a>
+        <a class="button button--ghost" href="/src/admin/inventory/delete?id=${item.id}">삭제</a>
       </div>
     </article>
   `;

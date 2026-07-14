@@ -1,10 +1,10 @@
 const NAV_ITEMS = [
-  { id: 'home', label: '홈', href: 'src/customer/home/read/index.html' },
-  { id: 'menu', label: '메뉴', href: 'src/customer/menu/read/list/index.html' },
-  { id: 'cart', label: '장바구니', href: 'src/customer/cart/read/index.html' },
-  { id: 'order', label: '주문내역', href: 'src/customer/order/read/list/index.html' },
-  { id: 'account', label: '내 정보', href: 'src/customer/account/read/profile/index.html' },
-  { id: 'admin', label: '관리자', href: 'src/admin/dashboard/read/index.html' },
+  { id: 'home', label: '홈', href: 'src/customer/home/read' },
+  { id: 'menu', label: '메뉴', href: 'src/customer/menu/read/list' },
+  { id: 'cart', label: '장바구니', href: 'src/customer/cart/read' },
+  { id: 'order', label: '주문내역', href: 'src/customer/order/read/list' },
+  { id: 'account', label: '내 정보', href: 'src/customer/account/read/profile' },
+  { id: 'admin', label: '관리자', href: 'src/admin/dashboard/read' },
 ];
 
 export function renderHeader(activeId = 'home', basePath = '.') {
@@ -16,7 +16,7 @@ export function renderHeader(activeId = 'home', basePath = '.') {
   return `
     <header class="site-header">
       <div class="site-header__inner">
-        <a class="brand" href="/index.html" aria-label="gh cafe 홈">
+        <a class="brand" href="/" aria-label="gh cafe 홈">
           <span class="brand__mark">GH</span>
           <span>gh cafe</span>
         </a>

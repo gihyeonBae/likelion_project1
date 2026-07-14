@@ -15,7 +15,7 @@ if (!order || order.status === 'canceled') {
   container.innerHTML = `
     <div class="empty-state">
       <p>수정할 수 있는 주문이 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/order/read/list/index.html">주문 내역</a>
+      <a class="button button--primary" href="/src/customer/order/read/list">주문 내역</a>
     </div>
   `;
 } else {
@@ -42,7 +42,7 @@ if (!order || order.status === 'canceled') {
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">수정 저장</button>
-        <a class="button button--ghost" href="/src/customer/order/read/detail/index.html?id=${order.id}">취소</a>
+        <a class="button button--ghost" href="/src/customer/order/read/detail?id=${order.id}">취소</a>
       </div>
     </form>
   `;
@@ -73,6 +73,6 @@ if (!order || order.status === 'canceled') {
       pickupTime,
       requestMessage,
     });
-    window.location.href = `/src/customer/order/read/detail/index.html?id=${order.id}`;
+    window.location.href = `/src/customer/order/read/detail?id=${order.id}`;
   });
 }

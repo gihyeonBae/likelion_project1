@@ -87,7 +87,7 @@ export function createMenuForm({ menu = {}, categories, submitLabel }) {
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">${submitLabel}</button>
-        <a class="button button--ghost" href="/src/admin/menu/read/list/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/menu/read/list">목록</a>
       </div>
     </form>
   `;
@@ -148,9 +148,9 @@ export function createAdminMenuRow(menu, categories, { basePath }) {
       </div>
       <strong>${formatCurrency(menu.price)}</strong>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="/src/admin/menu/read/detail/index.html?id=${menu.id}">상세</a>
-        <a class="button button--ghost" href="/src/admin/menu/update/index.html?id=${menu.id}">수정</a>
-        <a class="button button--ghost" href="/src/admin/menu/delete/index.html?id=${menu.id}">삭제</a>
+        <a class="button button--ghost" href="/src/admin/menu/read/detail?id=${menu.id}">상세</a>
+        <a class="button button--ghost" href="/src/admin/menu/update?id=${menu.id}">수정</a>
+        <a class="button button--ghost" href="/src/admin/menu/delete?id=${menu.id}">삭제</a>
       </div>
     </article>
   `;

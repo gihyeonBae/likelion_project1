@@ -18,18 +18,18 @@ container.innerHTML = item
       <p class="hero__description">이 재고 항목과 입고 기록을 삭제합니다.</p>
       <div class="detail-actions">
         <button class="button button--primary" id="delete-inventory" type="button">삭제</button>
-        <a class="button button--ghost" href="/src/admin/inventory/read/list/index.html">취소</a>
+        <a class="button button--ghost" href="/src/admin/inventory/read/list">취소</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>삭제할 재고를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/inventory/read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/inventory/read/list">목록</a>
     </div>
   `;
 
 document.getElementById('delete-inventory')?.addEventListener('click', () => {
   deleteInventoryItem(item.id);
-  window.location.href = '/src/admin/inventory/read/list/index.html';
+  window.location.href = '/src/admin/inventory/read/list';
 });

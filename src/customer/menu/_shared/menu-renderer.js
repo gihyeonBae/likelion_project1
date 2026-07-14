@@ -7,17 +7,17 @@ export function createMenuGrid(menus, { basePath, emptyMessage = '조건에 맞�
 
   return menus.map((menu) => createMenuCard(menu, {
     basePath,
-    detailHref: `/src/customer/menu/read/detail/index.html?id=${encodeURIComponent(menu.id)}`,
+    detailHref: `/src/customer/menu/read/detail?id=${encodeURIComponent(menu.id)}`,
   })).join('');
 }
 
 export function createCategoryTabs(categories, activeCategoryId, { basePath, includeAll = true } = {}) {
   const allTab = includeAll
-    ? `<a class="category-tab${activeCategoryId === 'all' ? ' is-active' : ''}" href="/src/customer/menu/read/list/index.html?category=all">전체</a>`
+    ? `<a class="category-tab${activeCategoryId === 'all' ? ' is-active' : ''}" href="/src/customer/menu/read/list?category=all">전체</a>`
     : '';
 
   const categoryTabs = categories.map((category) => `
-    <a class="category-tab${activeCategoryId === category.id ? ' is-active' : ''}" href="/src/customer/menu/read/list/index.html?category=${category.id}">
+    <a class="category-tab${activeCategoryId === category.id ? ' is-active' : ''}" href="/src/customer/menu/read/list?category=${category.id}">
       ${category.nameKo}
     </a>
   `).join('');

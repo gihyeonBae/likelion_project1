@@ -22,7 +22,7 @@ if (!cartItems.length) {
   container.innerHTML = `
     <div class="empty-state">
       <p>주문할 메뉴가 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/order/read/checkout/index.html">주문서로 돌아가기</a>
+      <a class="button button--primary" href="/src/customer/order/read/checkout">주문서로 돌아가기</a>
     </div>
   `;
 } else {
@@ -55,7 +55,7 @@ if (!cartItems.length) {
         <p class="form-error" id="form-error" role="alert"></p>
         <div class="detail-actions">
           <button class="button button--primary" type="submit">주문 생성</button>
-          <a class="button button--ghost" href="/src/customer/order/read/checkout/index.html">주문서로 돌아가기</a>
+          <a class="button button--ghost" href="/src/customer/order/read/checkout">주문서로 돌아가기</a>
         </div>
       </form>
     </article>
@@ -90,6 +90,6 @@ if (!cartItems.length) {
       totalPrice,
     });
     clearCartItems();
-    window.location.href = `/src/customer/order/read/detail/index.html?id=${order.id}`;
+    window.location.href = `/src/customer/order/read/detail?id=${order.id}`;
   });
 }

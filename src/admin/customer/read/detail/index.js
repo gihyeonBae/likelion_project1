@@ -16,7 +16,7 @@ if (!customer) {
   container.innerHTML = `
     <div class="empty-state">
       <p>고객을 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/customer/read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/customer/read/list">목록</a>
     </div>
   `;
 } else {
@@ -33,8 +33,8 @@ if (!customer) {
         <div><dt>전체 주문</dt><dd>${orderCount}건</dd></div>
       </dl>
       <div class="detail-actions">
-        <a class="button button--primary" href="/src/admin/customer/update/status/index.html?id=${customer.id}">상태 수정</a>
-        <a class="button button--ghost" href="/src/admin/customer/read/list/index.html">목록</a>
+        <a class="button button--primary" href="/src/admin/customer/update/status?id=${customer.id}">상태 수정</a>
+        <a class="button button--ghost" href="/src/admin/customer/read/list">목록</a>
       </div>
     </article>
   `;

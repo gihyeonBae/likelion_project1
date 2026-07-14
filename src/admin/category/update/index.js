@@ -37,7 +37,7 @@ function renderCategoryForm(categoryToEdit) {
         return;
       }
 
-      window.location.href = '/src/admin/category/read/index.html';
+      window.location.href = '/src/admin/category/read';
     } catch (updateError) {
       error.textContent = updateError.message || '카테고리 수정에 실패했습니다.';
     }
@@ -55,8 +55,8 @@ if (!category) {
         <h1>수정할 카테고리 선택</h1>
         <p class="hero__description">수정하려는 카테고리의 수정 버튼을 눌러 주세요.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="/src/admin/category/create/index.html">카테고리 등록</a>
-          <a class="button button--ghost" href="/src/admin/category/read/index.html">목록</a>
+          <a class="button button--primary" href="/src/admin/category/create">카테고리 등록</a>
+          <a class="button button--ghost" href="/src/admin/category/read">목록</a>
         </div>
       </div>
     </section>
@@ -71,7 +71,7 @@ if (!category) {
           : `
             <div class="empty-state">
               <p>등록된 카테고리가 없습니다.</p>
-              <a class="button button--primary" href="/src/admin/category/create/index.html">카테고리 등록</a>
+              <a class="button button--primary" href="/src/admin/category/create">카테고리 등록</a>
             </div>
           `}
       </div>
@@ -93,7 +93,7 @@ if (!category) {
       return;
     }
 
-    window.history.pushState(null, '', `/src/admin/category/update/index.html?id=${selectedCategory.id}`);
+    window.history.pushState(null, '', `/src/admin/category/update?id=${selectedCategory.id}`);
     renderCategoryForm(selectedCategory);
   });
 } else {

@@ -23,14 +23,14 @@ container.innerHTML = category
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary${menus.length ? ' is-disabled' : ''}" id="delete-category" type="button"${menus.length ? ' disabled' : ''}>삭제</button>
-        <a class="button button--ghost" href="/src/admin/category/read/index.html">목록</a>
+        <a class="button button--ghost" href="/src/admin/category/read">목록</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>삭제할 카테고리를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/category/read/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/category/read">목록</a>
     </div>
   `;
 
@@ -39,7 +39,7 @@ document.getElementById('delete-category')?.addEventListener('click', async () =
 
   try {
     await deleteCategory(category.id);
-    window.location.href = '/src/admin/category/read/index.html';
+    window.location.href = '/src/admin/category/read';
   } catch (deleteError) {
     error.textContent = deleteError.message || '카테고리 삭제에 실패했습니다.';
   }

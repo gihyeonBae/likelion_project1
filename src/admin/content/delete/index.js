@@ -10,7 +10,7 @@ document.getElementById('app-footer').innerHTML = renderFooter();
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const content = getBannerById(id);
-const listPath = '/src/admin/content/read/banner-list/index.html';
+const listPath = '/src/admin/content/read/banner-list';
 
 document.getElementById('content-delete').innerHTML = content
   ? `

@@ -33,9 +33,9 @@ container.innerHTML = menu
           <div><dt>옵션</dt><dd>${Object.entries(menu.options).map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join('/') : value}`).join(', ')}</dd></div>
         </dl>
         <div class="detail-actions">
-          <a class="button button--primary" href="/src/admin/menu/update/index.html?id=${menu.id}">수정</a>
-          <a class="button button--ghost" href="/src/admin/menu/delete/index.html?id=${menu.id}">삭제</a>
-          <a class="button button--ghost" href="/src/admin/menu/read/list/index.html">목록</a>
+          <a class="button button--primary" href="/src/admin/menu/update?id=${menu.id}">수정</a>
+          <a class="button button--ghost" href="/src/admin/menu/delete?id=${menu.id}">삭제</a>
+          <a class="button button--ghost" href="/src/admin/menu/read/list">목록</a>
         </div>
       </div>
     </article>
@@ -43,6 +43,6 @@ container.innerHTML = menu
   : `
     <div class="empty-state">
       <p>메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/menu/read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/menu/read/list">목록</a>
     </div>
   `;

@@ -80,7 +80,7 @@ if (!cartItem || !menu) {
   container.innerHTML = `
     <div class="empty-state">
       <p>수정할 장바구니 메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/cart/read/index.html">장바구니로 이동</a>
+      <a class="button button--primary" href="/src/customer/cart/read">장바구니로 이동</a>
     </div>
   `;
 } else {
@@ -101,7 +101,7 @@ if (!cartItem || !menu) {
         ${createOptionFields(menu, cartItem)}
         <div class="detail-actions">
           <button class="button button--primary" type="submit">변경사항 저장</button>
-          <a class="button button--ghost" href="/src/customer/cart/read/index.html">취소</a>
+          <a class="button button--ghost" href="/src/customer/cart/read">취소</a>
         </div>
       </form>
     </article>
@@ -122,6 +122,6 @@ if (!cartItem || !menu) {
         takeout: formData.get('takeout') === 'true',
       },
     });
-    window.location.href = '/src/customer/cart/read/index.html';
+    window.location.href = '/src/customer/cart/read';
   });
 }

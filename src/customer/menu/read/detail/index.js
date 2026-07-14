@@ -59,7 +59,7 @@ if (!menu) {
   detail.innerHTML = `
     <div class="empty-state">
       <p>메뉴를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/menu/read/list/index.html">메뉴 목록</a>
+      <a class="button button--primary" href="/src/customer/menu/read/list">메뉴 목록</a>
     </div>
   `;
 } else {
@@ -81,8 +81,8 @@ if (!menu) {
         </div>
         <div class="detail-actions">
           <button class="button button--primary" id="add-cart-button" type="button">장바구니 담기</button>
-          <a class="button button--ghost" href="/src/customer/cart/create/index.html?id=${menu.id}">옵션 선택</a>
-          <a class="button button--ghost" href="/src/customer/menu/read/list/index.html?category=${menu.categoryId}">같은 카테고리 보기</a>
+          <a class="button button--ghost" href="/src/customer/cart/create?id=${menu.id}">옵션 선택</a>
+          <a class="button button--ghost" href="/src/customer/menu/read/list?category=${menu.categoryId}">같은 카테고리 보기</a>
         </div>
       </div>
     </article>
@@ -96,6 +96,6 @@ if (!menu) {
       options: getDefaultCartOptions(menu),
     });
 
-    window.location.href = '/src/customer/cart/read/index.html';
+    window.location.href = '/src/customer/cart/read';
   });
 }

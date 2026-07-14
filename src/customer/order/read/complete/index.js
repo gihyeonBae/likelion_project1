@@ -15,7 +15,7 @@ const order = await getOrderById(requestedOrderId);
 const container = document.getElementById('order-complete');
 
 if (order && !requestedOrderId) {
-  window.history.replaceState(null, '', `/src/customer/order/read/complete/index.html?id=${order.id}`);
+  window.history.replaceState(null, '', `/src/customer/order/read/complete?id=${order.id}`);
 }
 
 container.innerHTML = order
@@ -30,14 +30,14 @@ container.innerHTML = order
         <div><dt>영수증</dt><dd>${order.paymentReceiptId || '없음'}</dd></div>
       </dl>
       <div class="detail-actions">
-        <a class="button button--primary" href="/src/customer/order/read/detail/index.html?id=${order.id}">주문 상세 보기</a>
-        <a class="button button--ghost" href="/src/customer/order/read/list/index.html">주문 내역</a>
+        <a class="button button--primary" href="/src/customer/order/read/detail?id=${order.id}">주문 상세 보기</a>
+        <a class="button button--ghost" href="/src/customer/order/read/list">주문 내역</a>
       </div>
     </section>
   `
   : `
     <div class="empty-state">
       <p>주문 정보를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/order/read/list/index.html">주문 내역으로 이동</a>
+      <a class="button button--primary" href="/src/customer/order/read/list">주문 내역으로 이동</a>
     </div>
   `;

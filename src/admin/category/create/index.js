@@ -23,7 +23,7 @@ document.getElementById('category-form').addEventListener('submit', async (event
 
   try {
     await createCategory(payload);
-    window.location.href = '/src/admin/category/read/index.html';
+    window.location.href = '/src/admin/category/read';
   } catch (createError) {
     error.textContent = createError.message;
   }

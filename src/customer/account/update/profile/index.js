@@ -15,7 +15,7 @@ if (!customer) {
   container.innerHTML = `
     <div class="empty-state">
       <p>정보를 수정하려면 로그인이 필요합니다.</p>
-      <a class="button button--primary" href="/src/customer/account/create/login/index.html">로그인</a>
+      <a class="button button--primary" href="/src/customer/account/create/login">로그인</a>
     </div>
   `;
 } else {
@@ -42,7 +42,7 @@ if (!customer) {
       <p class="form-error" id="form-error" role="alert"></p>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">저장</button>
-        <a class="button button--ghost" href="/src/customer/account/read/profile/index.html">취소</a>
+        <a class="button button--ghost" href="/src/customer/account/read/profile">취소</a>
       </div>
     </form>
   `;
@@ -73,6 +73,6 @@ if (!customer) {
       phone,
       ...(isRequired(password) ? { password } : {}),
     });
-    window.location.href = '/src/customer/account/read/profile/index.html';
+    window.location.href = '/src/customer/account/read/profile';
   });
 }

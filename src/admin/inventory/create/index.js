@@ -29,5 +29,5 @@ document.getElementById('inventory-form').addEventListener('submit', (event) => 
       createdAt: new Date().toISOString(),
     },
   });
-  window.location.href = `/src/admin/inventory/read/history/index.html?id=${item.id}`;
+  window.location.href = `/src/admin/inventory/read/history?id=${item.id}`;
 });

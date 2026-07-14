@@ -16,7 +16,7 @@ const order = await getOrderById(requestedOrderId);
 const container = document.getElementById('order-detail');
 
 if (order && !requestedOrderId) {
-  window.history.replaceState(null, '', `/src/customer/order/read/detail/index.html?id=${order.id}`);
+  window.history.replaceState(null, '', `/src/customer/order/read/detail?id=${order.id}`);
 }
 
 container.innerHTML = order
@@ -37,11 +37,11 @@ container.innerHTML = order
         <strong class="detail-price">${formatCurrency(order.totalPrice)}</strong>
         <div class="detail-actions customer-order-actions">
           ${order.paymentStatus !== 'paid' && order.status !== 'canceled'
-            ? `<a class="button button--primary" href="/src/customer/payment/create/index.html?id=${order.id}">결제하기</a>`
+            ? `<a class="button button--primary" href="/src/customer/payment/create?id=${order.id}">결제하기</a>`
             : ''}
-          <a class="button button--primary${order.status === 'canceled' ? ' is-disabled' : ''}" href="${order.status === 'canceled' ? '#' : `/src/customer/order/update/index.html?id=${order.id}`}">주문 수정</a>
-          <a class="button button--ghost${order.status === 'canceled' ? ' is-disabled' : ''}" href="${order.status === 'canceled' ? '#' : `/src/customer/order/delete/index.html?id=${order.id}`}">주문 취소</a>
-          <a class="button button--ghost" href="/src/customer/order/read/list/index.html">목록</a>
+          <a class="button button--primary${order.status === 'canceled' ? ' is-disabled' : ''}" href="${order.status === 'canceled' ? '#' : `/src/customer/order/update?id=${order.id}`}">주문 수정</a>
+          <a class="button button--ghost${order.status === 'canceled' ? ' is-disabled' : ''}" href="${order.status === 'canceled' ? '#' : `/src/customer/order/delete?id=${order.id}`}">주문 취소</a>
+          <a class="button button--ghost" href="/src/customer/order/read/list">목록</a>
         </div>
       </section>
       <section class="cart-list">
@@ -52,6 +52,6 @@ container.innerHTML = order
   : `
     <div class="empty-state">
       <p>주문 상세를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/order/read/list/index.html">주문 내역으로 이동</a>
+      <a class="button button--primary" href="/src/customer/order/read/list">주문 내역으로 이동</a>
     </div>
   `;

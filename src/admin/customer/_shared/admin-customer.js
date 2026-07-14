@@ -28,8 +28,8 @@ export function createCustomerRow(customer, { basePath }) {
         <p class="menu-card__meta">${customer.email} · ${customer.phone}</p>
       </div>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="/src/admin/customer/read/detail/index.html?id=${customer.id}">상세</a>
-        <a class="button button--ghost" href="/src/admin/customer/update/status/index.html?id=${customer.id}">상태</a>
+        <a class="button button--ghost" href="/src/admin/customer/read/detail?id=${customer.id}">상세</a>
+        <a class="button button--ghost" href="/src/admin/customer/update/status?id=${customer.id}">상태</a>
       </div>
     </article>
   `;

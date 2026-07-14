@@ -21,6 +21,6 @@ document.getElementById('category-list').innerHTML = categories.length
   : `
     <div class="empty-state">
       <p>등록된 카테고리가 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/category/create/index.html">카테고리 등록</a>
+      <a class="button button--primary" href="/src/admin/category/create">카테고리 등록</a>
     </div>
   `;

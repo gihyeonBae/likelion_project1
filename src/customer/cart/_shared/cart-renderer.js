@@ -45,7 +45,7 @@ export function createCartItemCard(cartItem, menu, { basePath }) {
           <h3>삭제된 메뉴</h3>
           <p class="menu-card__meta">이 메뉴는 더 이상 판매 목록에 없습니다.</p>
         </div>
-        <a class="button button--ghost" href="/src/customer/cart/delete/index.html?id=${cartItem.id}">삭제</a>
+        <a class="button button--ghost" href="/src/customer/cart/delete?id=${cartItem.id}">삭제</a>
       </article>
     `;
   }
@@ -63,8 +63,8 @@ export function createCartItemCard(cartItem, menu, { basePath }) {
       </div>
       <strong class="cart-item__total">${formatCurrency(calculateCartLineTotal(cartItem, menu))}</strong>
       <div class="cart-item__actions">
-        <a class="button button--ghost" href="/src/customer/cart/update/index.html?id=${cartItem.id}">수정</a>
-        <a class="button button--ghost" href="/src/customer/cart/delete/index.html?id=${cartItem.id}">삭제</a>
+        <a class="button button--ghost" href="/src/customer/cart/update?id=${cartItem.id}">수정</a>
+        <a class="button button--ghost" href="/src/customer/cart/delete?id=${cartItem.id}">삭제</a>
       </div>
     </article>
   `;

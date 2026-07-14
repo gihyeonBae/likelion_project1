@@ -16,7 +16,7 @@ if (!banner) {
   container.innerHTML = `
     <div class="empty-state">
       <p>수정할 배너를 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/content/read/banner-list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/content/read/banner-list">목록</a>
     </div>
   `;
 } else {
@@ -32,6 +32,6 @@ if (!banner) {
     }
 
     updateBanner(banner.id, payload);
-    window.location.href = '/src/admin/content/read/banner-list/index.html';
+    window.location.href = '/src/admin/content/read/banner-list';
   });
 }

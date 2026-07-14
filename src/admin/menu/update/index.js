@@ -38,7 +38,7 @@ function renderMenuForm(menuToEdit) {
         return;
       }
 
-      window.location.href = `/src/admin/menu/read/detail/index.html?id=${updatedMenu.id}`;
+      window.location.href = `/src/admin/menu/read/detail?id=${updatedMenu.id}`;
     } catch (updateError) {
       error.textContent = updateError.message || '메뉴 수정에 실패했습니다.';
     }
@@ -55,8 +55,8 @@ if (!menu) {
         <h1>수정할 메뉴 선택</h1>
         <p class="hero__description">수정하려는 메뉴의 수정 버튼을 눌러 주세요.</p>
         <div class="hero__actions">
-          <a class="button button--primary" href="/src/admin/menu/create/index.html">메뉴 등록</a>
-          <a class="button button--ghost" href="/src/admin/menu/read/list/index.html">목록</a>
+          <a class="button button--primary" href="/src/admin/menu/create">메뉴 등록</a>
+          <a class="button button--ghost" href="/src/admin/menu/read/list">목록</a>
         </div>
       </div>
     </section>
@@ -67,7 +67,7 @@ if (!menu) {
           : `
             <div class="empty-state">
               <p>등록된 메뉴가 없습니다.</p>
-              <a class="button button--primary" href="/src/admin/menu/create/index.html">메뉴 등록</a>
+              <a class="button button--primary" href="/src/admin/menu/create">메뉴 등록</a>
             </div>
           `}
       </div>
@@ -89,7 +89,7 @@ if (!menu) {
       return;
     }
 
-    window.history.pushState(null, '', `/src/admin/menu/update/index.html?id=${selectedMenu.id}`);
+    window.history.pushState(null, '', `/src/admin/menu/update?id=${selectedMenu.id}`);
     renderMenuForm(selectedMenu);
   });
 } else {

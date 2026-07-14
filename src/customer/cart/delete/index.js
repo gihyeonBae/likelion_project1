@@ -24,7 +24,7 @@ container.innerHTML = `
     </p>
     <div class="detail-actions">
       <button class="button button--primary" id="confirm-delete" type="button">삭제하기</button>
-      <a class="button button--ghost" href="/src/customer/cart/read/index.html">취소</a>
+      <a class="button button--ghost" href="/src/customer/cart/read">취소</a>
     </div>
   </section>
 `;
@@ -36,5 +36,5 @@ document.getElementById('confirm-delete').addEventListener('click', () => {
     removeCartItem(cartItem.id);
   }
 
-  window.location.href = '/src/customer/cart/read/index.html';
+  window.location.href = '/src/customer/cart/read';
 });

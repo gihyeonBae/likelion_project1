@@ -14,7 +14,7 @@ if (!customer) {
   container.innerHTML = `
     <div class="empty-state">
       <p>상태를 수정할 고객을 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/customer/read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/customer/read/list">목록</a>
     </div>
   `;
 } else {
@@ -32,7 +32,7 @@ if (!customer) {
       </label>
       <div class="detail-actions">
         <button class="button button--primary" type="submit">상태 저장</button>
-        <a class="button button--ghost" href="/src/admin/customer/read/detail/index.html?id=${customer.id}">취소</a>
+        <a class="button button--ghost" href="/src/admin/customer/read/detail?id=${customer.id}">취소</a>
       </div>
     </form>
   `;
@@ -40,6 +40,6 @@ if (!customer) {
   document.getElementById('status-form').addEventListener('submit', async (event) => {
     event.preventDefault();
     await updateCustomerStatus(customer.id, new FormData(event.currentTarget).get('status'));
-    window.location.href = `/src/admin/customer/read/detail/index.html?id=${customer.id}`;
+    window.location.href = `/src/admin/customer/read/detail?id=${customer.id}`;
   });
 }

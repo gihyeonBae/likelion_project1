@@ -78,7 +78,7 @@
   background:
     linear-gradient(90deg, rgba(251, 246, 237, 0.96) 0%, rgba(251, 246, 237, 0.82) 36%, rgba(251, 246, 237, 0.18) 68%, rgba(251, 246, 237, 0.08) 100%),
     linear-gradient(180deg, rgba(255, 253, 248, 0.26), rgba(241, 232, 220, 0.28)),
-    url("../../../assets/images/banners/main-hero-cafe.png");
+    url("/assets/images/banners/main-hero-cafe.png");
   background-position: center right;
   background-size: cover;
 }
@@ -121,7 +121,7 @@
   background:
     linear-gradient(90deg, rgba(251, 246, 237, 0.96) 0%, rgba(251, 246, 237, 0.82) 38%, rgba(251, 246, 237, 0.2) 70%, rgba(251, 246, 237, 0.08) 100%),
     linear-gradient(180deg, rgba(255, 253, 248, 0.24), rgba(241, 232, 220, 0.28)),
-    url("../../../assets/images/banners/main-hero-cafe.png");
+    url("/assets/images/banners/main-hero-cafe.png");
   background-position: center right;
   background-size: cover;
 }
@@ -789,7 +789,7 @@
     background:
       linear-gradient(90deg, rgba(251, 246, 237, 0.98) 0%, rgba(251, 246, 237, 0.86) 58%, rgba(251, 246, 237, 0.34) 100%),
       linear-gradient(180deg, rgba(255, 253, 248, 0.32), rgba(241, 232, 220, 0.32)),
-      url("../../../assets/images/banners/main-hero-cafe.png");
+      url("/assets/images/banners/main-hero-cafe.png");
     background-position: 64% center;
     background-size: cover;
   }
@@ -802,7 +802,7 @@
     background:
       linear-gradient(90deg, rgba(251, 246, 237, 0.98) 0%, rgba(251, 246, 237, 0.86) 58%, rgba(251, 246, 237, 0.34) 100%),
       linear-gradient(180deg, rgba(255, 253, 248, 0.32), rgba(241, 232, 220, 0.32)),
-      url("../../../assets/images/banners/main-hero-cafe.png");
+      url("/assets/images/banners/main-hero-cafe.png");
     background-position: 64% center;
     background-size: cover;
   }

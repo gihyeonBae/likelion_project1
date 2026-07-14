@@ -15,6 +15,6 @@ document.getElementById('order-list').innerHTML = orders.length
   : `
     <div class="empty-state">
       <p>아직 주문 내역이 없습니다.</p>
-      <a class="button button--primary" href="/src/customer/menu/read/list/index.html">첫 주문 시작하기</a>
+      <a class="button button--primary" href="/src/customer/menu/read/list">첫 주문 시작하기</a>
     </div>
   `;

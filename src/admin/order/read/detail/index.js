@@ -17,13 +17,13 @@ if (!order) {
   container.innerHTML = `
     <div class="empty-state">
       <p>주문을 찾을 수 없습니다.</p>
-      <a class="button button--primary" href="/src/admin/order/read/list/index.html">목록</a>
+      <a class="button button--primary" href="/src/admin/order/read/list">목록</a>
     </div>
   `;
   statusLink.classList.add('is-disabled');
   deleteLink.classList.add('is-disabled');
 } else {
   container.innerHTML = createAdminOrderDetail(order, { basePath });
-  statusLink.href = `/src/admin/order/update/status/index.html?id=${order.id}`;
-  deleteLink.href = `/src/admin/order/delete/index.html?id=${order.id}`;
+  statusLink.href = `/src/admin/order/update/status?id=${order.id}`;
+  deleteLink.href = `/src/admin/order/delete?id=${order.id}`;
 }
